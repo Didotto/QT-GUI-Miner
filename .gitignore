@@ -1,0 +1,12 @@
+/apps/QT-Server/bin/
+/apps/QT-GUI-Client/bin/
+
+
+
+#Eclipse project files
+apps/QT-GUI-Client/.classpath
+apps/QT-Server/.classpath
+apps/QT-GUI-Client/.project
+apps/QT-Server/.project
+apps/QT-GUI-Client/src/main/.DS_Store
+apps/QT-Server/src/main/.DS_Store
