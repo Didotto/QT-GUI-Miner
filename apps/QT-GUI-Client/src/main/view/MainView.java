@@ -24,8 +24,9 @@ public class MainView extends Application {
         SplitPane splitPane = (SplitPane)scene.lookup("#splitPane");
         splitPane.lookupAll(".split-pane-divider").stream()
     		.forEach(div ->  div.setMouseTransparent(true) );
-        
+        //REMINDER : EDIT PATH OF THE IMAGE
         primaryStage.getIcons().add(new Image("file:src/main/view/mining.png"));
+		
         primaryStage.setMinHeight(500);
         primaryStage.setMinWidth(500);
         
