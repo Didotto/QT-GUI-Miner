@@ -41,7 +41,7 @@ public class MainController{
 		loadOptions.getSelectionModel().select(0);
 		rightPane.setDisable(true);
 	}
-	
+	//RIMENDER : MEGLIO PRIVATE MA CON @FXML OPPURE PUBLIC ?
 	public void changeLoadOption(ActionEvent event) {
 		if(loadOptions.getSelectionModel().getSelectedIndex() == 0) {
 			//TO-DO ask the server for table names
