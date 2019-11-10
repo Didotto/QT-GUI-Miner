@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ComboBox;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -61,6 +62,12 @@ public class MainController{
 			root = FXMLLoader.load(getClass().getResource("../view/connectionOptions.fxml"));
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root, root.getPrefWidth(), root.getPrefHeight()));
+			
+			stage.setMinHeight(300);
+	        stage.setMinWidth(400);
+	        
+	        stage.getIcons().add(new Image("file:src/main/view/rotella.png"));
+	        
 			stage.show();
 		} catch(IOException e) {
 			System.out.println("Errore " + e.getMessage());
