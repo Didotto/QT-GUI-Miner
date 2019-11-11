@@ -55,7 +55,7 @@ public class MainController extends Controller implements Observer{
 		rightPane.setDisable(true);
 		
 	}
-	
+	//https://www.javaworld.com/article/2077258/observer-and-observable.html
 	//RIMENDER : MEGLIO PRIVATE MA CON @FXML OPPURE PUBLIC ?
 	public void changeLoadOption(ActionEvent event) {
 		if(loadOptions.getSelectionModel().getSelectedIndex() == 0) {
