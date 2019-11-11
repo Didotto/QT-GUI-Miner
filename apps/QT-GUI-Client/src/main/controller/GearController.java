@@ -9,7 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 
-import javafx.beans.binding.*;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.Bindings;
 
 
 public class GearController extends Controller{
@@ -32,7 +33,7 @@ public class GearController extends Controller{
 	
 	public void connectionClicked (MouseEvent event) {
 		String ipAddr = ipAddress.getText();
-		//TO-DO if ipAddr è regolare
+		//TO-DO if ipAddr Ã¨ regolare
 		int port_conn = new Integer(port.getText()).intValue();
 		try {
 			model.connect(ipAddr, port_conn);
