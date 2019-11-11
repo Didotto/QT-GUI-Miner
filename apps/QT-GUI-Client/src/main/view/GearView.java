@@ -14,7 +14,7 @@ import model.DataModel;
 public class GearView {
 	private static final String FXMLPATH = "../view/connectionOptions.fxml";
 	
-	private static final String ICONPATH = "file:src/main/view/rotella.png";
+	private static final String ICONPATH = "file:src/main/resources/rotella.png";
 	
 	private static final String TITLE = "SETTINGS";
 	
