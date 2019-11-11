@@ -63,8 +63,8 @@ public class MainController{
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root, root.getPrefWidth(), root.getPrefHeight()));
 			
-			stage.setMinHeight(300);
-	        stage.setMinWidth(400);
+			stage.setResizable(false);
+	        	stage.setTitle("SETTINGS");
 	        
 	        stage.getIcons().add(new Image("file:src/main/view/rotella.png"));
 	        
