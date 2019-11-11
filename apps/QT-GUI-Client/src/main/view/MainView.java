@@ -14,6 +14,8 @@ import controller.MainController;
 import java.util.Observer;
 import java.util.Observable;
 
+import javafx.application.Platform;
+
 public class MainView extends Application{
 	
 	private FXMLLoader loader;
@@ -46,10 +48,12 @@ public class MainView extends Application{
         splitPane.lookupAll(".split-pane-divider").stream()
     		.forEach(div ->  div.setMouseTransparent(true) );
         //REMINDER : EDIT PATH OF THE IMAGE
-        primaryStage.getIcons().add(new Image("file:src/main/view/mining.png"));
+        primaryStage.getIcons().add(new Image("file:src/main/resources/mining.png"));
 		
         primaryStage.setMinHeight(500);
         primaryStage.setMinWidth(500);
+        
+        primaryStage.setOnHidden(e -> Platform.exit());
         
         primaryStage.setScene(scene);
         
