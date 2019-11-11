@@ -24,7 +24,7 @@
       <AnchorPane layoutY="316.0" prefHeight="22.0" prefWidth="600.0" style="-fx-background-color: 0; -fx-background-size: 1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Label layoutX="230.0" layoutY="3.0" prefHeight="17.0" prefWidth="44.0" text="Status" textAlignment="RIGHT" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="26.0" />
-            <Circle fill="RED" layoutX="280.0" layoutY="11.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="14.0" />
+            <Circle fx:id="statusCircle" fill="RED" layoutX="280.0" layoutY="11.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="14.0" />
          </children>
       </AnchorPane>
       <Button disable="true" layoutX="204.0" layoutY="248.0" mnemonicParsing="false" text="Load" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="211.0" />

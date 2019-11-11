@@ -12,8 +12,7 @@ import javafx.scene.control.Button;
 import javafx.beans.binding.*;
 
 
-
-public class GearController {
+public class GearController extends Controller{
 	@FXML
 	private AnchorPane ConnectionPane;
 	@FXML
@@ -26,22 +25,23 @@ public class GearController {
 	
 	@FXML
 	public void initialize() {
-		
 		BooleanBinding isIpAddressFieldEmpty = Bindings.isEmpty(ipAddress.textProperty());
 		BooleanBinding isPortFieldEmpty = Bindings.isEmpty(port.textProperty());
 		connectionButton.disableProperty().bind(isIpAddressFieldEmpty.or(isPortFieldEmpty));
-		
 	}
 	
 	public void connectionClicked (MouseEvent event) {
 		String ipAddr = ipAddress.getText();
+		//TO-DO if ipAddr è regolare
 		int port_conn = new Integer(port.getText()).intValue();
+		try {
+			model.connect(ipAddr, port_conn);
+			controlledStage.close();
+			System.out.println("Connessione AVVENUTA");
+		} catch (IOException e) {
+			//ALERT - Connessione non avvenuta
+			System.out.println("Connessione non avvenuta");
+		}
 		
-		if (ipAddr.equals("127.0.0.1") && port_conn==8080) {
-			//non faccio la connessione qui ma tipo "invio el stringhe chiamando un altro metodo"
-			// se non riesce a connettersi non la chiudo
-	}else {
-		// dati immessi non corretti : non si chiude
 	}
-}
 }

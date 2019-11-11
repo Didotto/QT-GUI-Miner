@@ -8,7 +8,21 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class MainView extends Application {
+import model.DataModel;
+import controller.MainController;
+
+import java.util.Observer;
+import java.util.Observable;
+
+public class MainView extends Application{
+	
+	private FXMLLoader loader;
+	
+	private MainController controller;
+	
+	private Scene scene;
+	
+	private Stage stage;
 	
 	public static void main(String args[]) {
 		launch(args);
@@ -16,8 +30,15 @@ public class MainView extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("prova.fxml")); 
-        Scene scene = new Scene(root, 550, 500);
+		loader = new FXMLLoader(getClass().getResource("prova.fxml"));
+		Parent root = loader.load();
+		
+		controller = loader.getController();
+		DataModel model = new DataModel();
+		model.addObserver(controller);
+		
+        scene = new Scene(root, 550, 500);
+        stage = primaryStage;
         primaryStage.setTitle("QT-Miner JavaFX");
         
         //Disable Split Pane divider
@@ -31,6 +52,8 @@ public class MainView extends Application {
         primaryStage.setMinWidth(500);
         
         primaryStage.setScene(scene);
+        
+        controller.init(model, stage);
         primaryStage.show(); 
 	}
 
