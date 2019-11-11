@@ -9,7 +9,7 @@
    <children>
       <Button fx:id="connectionButton" layoutX="114.0" onMouseClicked="#connectionClicked" layoutY="172.0" mnemonicParsing="false" text="Connect" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="113.0" />
       <TextField fx:id="ipAddress" layoutX="108.0" layoutY="69.0" promptText="127.0.0.1" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="30.0" />
-      <TextField fx:id="port" layoutX="108.0" layoutY="114.0" promptText="8080" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="30.0" />
+      <TextField fx:id="port" layoutX="108.0" layoutY="114.0" promptText="12346" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="30.0" />
       <Label layoutX="14.0" layoutY="73.0" prefHeight="17.0" prefWidth="71.0" text="IP address" AnchorPane.leftAnchor="14.0" />
       <Label layoutX="14.0" layoutY="118.0" prefHeight="17.0" prefWidth="71.0" text="Port" AnchorPane.leftAnchor="14.0" />
       <Label alignment="CENTER" layoutX="38.0" layoutY="23.0" prefHeight="27.0" prefWidth="213.0" text="CONNECTION OPTIONS" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="36.0">
