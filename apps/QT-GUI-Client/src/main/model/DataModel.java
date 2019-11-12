@@ -40,11 +40,11 @@ public class DataModel extends Observable{
 		return mySocket.isConnected();
 	}
 	
-	public ObjectInputStream getInputStream() throws IOException{
+	public ObjectInputStream getInputStream(){
 		return input;
 	}
 	
-	public ObjectOutputStream getOutputStream() throws IOException{
+	public ObjectOutputStream getOutputStream(){
 		return output;
 	}
 	
