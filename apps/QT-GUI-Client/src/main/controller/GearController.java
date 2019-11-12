@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.Bindings;
 
-import javafx.scene.control.Alert;
+import view.AlertDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -53,32 +53,26 @@ public class GearController extends Controller{
 						controlledStage.close();
 						System.out.println("Connessione AVVENUTA");
 					} catch (IOException e) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("CONNECTION FAILED");
-						alert.setHeaderText("CONNECTION PROBLEMS");
-						alert.setContentText("There is a problem with the server... Try to replace IP or Port!");
-						Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-						stage.getIcons().add(new Image("file:src/main/resources/connection_failed.png"));
-						alert.showAndWait();
-						System.out.println("Connessione non avvenuta");
+						new AlertDialog(AlertType.ERROR,
+								"CONNECTION FAILED",
+								"CONNECTION PROBLEMS",
+								"There is a problem with the server... Try to replace IP or Port!",
+								"connection_failed.png"
+								);
 					}
 				}else {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("CONNECTION FAILED");
-					alert.setHeaderText("CONNECTION PROBLEMS");
-					alert.setContentText("The Port doesn't respect the standards...Try again!");
-					Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-					stage.getIcons().add(new Image("file:src/main/resources/connection_failed.png"));
-					alert.showAndWait();
+					new AlertDialog(AlertType.WARNING,
+							"CONNECTION FAILED",
+							"CONNECTION PROBLEMS",
+							"The Port doesn't respect the standards...Try again!"
+							);
 				}
 			}else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("CONNECTION FAILED");
-				alert.setHeaderText("CONNECTION PROBLEMS");
-				alert.setContentText("The IP Address doesn't respect the standards...Try again!");
-				Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-				stage.getIcons().add(new Image("file:src/main/resources/connection_failed.png"));
-				alert.showAndWait();
+				new AlertDialog(AlertType.WARNING,
+						"CONNECTION FAILED",
+						"CONNECTION PROBLEMS",
+						"The IP Address doesn't respect the standards...Try again!"
+						);
 			}
 	}
 	
