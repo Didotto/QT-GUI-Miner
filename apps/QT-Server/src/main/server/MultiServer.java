@@ -29,7 +29,11 @@ public class MultiServer {
 			while(true) {
 				Socket newClient = serversocket.accept();
 				System.out.println("New client arrived: " + newClient);
-				new ServeOneClient(newClient);
+				try {
+					new ServeOneClient(newClient);
+				} catch (IOException e) {
+					System.out.println("Connection to client lost: " + e.getMessage());
+				}
 			}
 		} catch (IOException e) {
 			System.out.println("[!] Error occurred while communicating with the client: " + e.getMessage());
