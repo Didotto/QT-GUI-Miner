@@ -68,7 +68,7 @@ public class GearController extends Controller{
 							);
 				}
 			}else {
-				new AlertDialog(AlertType.WARNING,
+				new AlertDialog(AlertType.ERROR,
 						"CONNECTION FAILED",
 						"CONNECTION PROBLEMS",
 						"The IP Address doesn't respect the standards...Try again!"
