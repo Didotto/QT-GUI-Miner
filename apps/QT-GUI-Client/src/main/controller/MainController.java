@@ -26,6 +26,7 @@ import javafx.beans.binding.Bindings;
 import java.io.IOException;
 
 import view.GearView;
+import view.DataVisualizationView;
 import model.DataModel;
 
 import java.util.Observer;
@@ -96,7 +97,7 @@ public class MainController extends Controller implements Observer{
 		try {
 			new GearView(this.model);
 		}catch (IOException e){
-			System.out.println("Errore: " + e.getMessage());
+			System.out.println("Error: " + e.getMessage());
 		}
 	}
 	
@@ -109,4 +110,21 @@ public class MainController extends Controller implements Observer{
 			statusCircle.setFill(Color.RED);
 		}
 	}
+	
+	public void loadData(ActionEvent event) {
+		try {
+			if(loadOptions.getSelectionModel().getSelectedIndex() == 0) {
+				model.setTableName(tableName.getText());
+				model.setRadius(Double.valueOf(radius.getText()));
+				new DataVisualizationView(this.model, true);
+			}else {
+				model.setFileName(fileName.getText());
+				new DataVisualizationView(this.model, false);
+			}
+		}catch (IOException | NumberFormatException e){
+			//TO-DO Alert
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	
 }
