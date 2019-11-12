@@ -17,6 +17,11 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.Bindings;
 
 import java.io.IOException;
 
@@ -46,6 +51,18 @@ public class MainController extends Controller implements Observer{
 	private Circle statusCircle;
 	
 	@FXML
+	private TextField tableName; 
+	
+	@FXML
+	private TextField fileName;
+	
+	@FXML
+	private TextField radius;
+	
+	@FXML
+	private Button loadButton;
+	
+	@FXML
 	public void initialize() {
 		loadOptions.setItems(FXCollections.observableArrayList(
 				new String("Load From Database"),
@@ -53,6 +70,12 @@ public class MainController extends Controller implements Observer{
 				));
 		loadOptions.getSelectionModel().select(0);
 		rightPane.setDisable(true);
+		
+		BooleanBinding isStatusCircleRed = Bindings.equal(statusCircle.fillProperty(),Color.RED);
+		BooleanBinding isTableNameFieldEmpty = Bindings.isEmpty(tableName.textProperty());
+		BooleanBinding isRadiusFieldEmpty = Bindings.isEmpty(radius.textProperty());
+		BooleanBinding isFileNameFieldEmpty = Bindings.isEmpty(fileName.textProperty());
+		loadButton.disableProperty().bind(isStatusCircleRed.or(isFileNameFieldEmpty.and(isTableNameFieldEmpty.or(isRadiusFieldEmpty))));
 		
 	}
 	//https://www.javaworld.com/article/2077258/observer-and-observable.html
