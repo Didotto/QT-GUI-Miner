@@ -14,13 +14,15 @@ import javafx.beans.binding.Bindings;
 
 import view.AlertDialog;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
+
+
 public class GearController extends Controller{
 	@FXML
 	private AnchorPane ConnectionPane;
+	
 	@FXML
 	private TextField ipAddress;
+	
 	@FXML
 	private TextField port;
 	
@@ -28,10 +30,14 @@ public class GearController extends Controller{
 	private Button connectionButton;
 	
 	@FXML
+	private Button resetButton;
+	
+	@FXML
 	public void initialize() {
 		BooleanBinding isIpAddressFieldEmpty = Bindings.isEmpty(ipAddress.textProperty());
 		BooleanBinding isPortFieldEmpty = Bindings.isEmpty(port.textProperty());
 		connectionButton.disableProperty().bind(isIpAddressFieldEmpty.or(isPortFieldEmpty));
+		resetButton.disableProperty().bind(isIpAddressFieldEmpty.and(isPortFieldEmpty));
 	}
 	
 	private boolean re_ip(final String ip) {
@@ -42,6 +48,10 @@ public class GearController extends Controller{
 	    return ip.matches(pattern);
 	}
 	
+	public void resetClicked (MouseEvent event) {
+		ipAddress.clear();
+		port.clear();
+	}
 	
 	public void connectionClicked (MouseEvent event) {
 		String ipAddr = ipAddress.getText();
