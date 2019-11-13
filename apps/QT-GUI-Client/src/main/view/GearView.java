@@ -3,6 +3,7 @@ package view;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 
@@ -41,9 +42,10 @@ public class GearView {
 		
 		stage.setResizable(false);
         stage.setTitle(TITLE);
-        
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.getIcons().add(new Image(ICONPATH));
         controller.init(model, stage);
+        
 		stage.show();
 	}
 	
