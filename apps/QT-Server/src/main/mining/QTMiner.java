@@ -1,6 +1,10 @@
 package mining;
 
+import data.Attribute;
 import data.Data;
+import data.Item;
+import data.Tuple;
+
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
@@ -8,7 +12,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Iterator;
 //import java.util.Iterator;
+import java.util.LinkedList;
 
 public class QTMiner {
 	private ClusterSet clusterSet;
@@ -97,5 +103,32 @@ public class QTMiner {
 	
 	public String toString(Data data) {
 		return "Radius: " + radius + "\n" + clusterSet.toString(data);
+	}
+	
+	public LinkedList<String> getSchemeList(){
+		LinkedList<String> lista_attributi = new LinkedList<String>();
+		
+		Iterator<Cluster> it = clusterSet.iterator();
+		Cluster cluster = it.next();
+		Tuple centroid = cluster.getCentroid();
+		
+		for(int i=0; i< centroid.getLength(); i++) {
+			Item item = centroid.get(i);
+			Attribute attribute = item.getAttribute();
+			lista_attributi.add(i, attribute.getName());
+		}
+		return lista_attributi;
+	}
+	
+	public LinkedList<LinkedList<String>> getCentroidsList(){
+		LinkedList<LinkedList<String>> lista_centroidi = new LinkedList<LinkedList<String>>();
+		for (Cluster c: clusterSet) {
+			lista_centroidi.add(new LinkedList<String>());
+			Tuple t = c.getCentroid();
+			for (int j=0;j<t.getLength();j++) {
+				lista_centroidi.getLast().add(t.get(j).getValue().toString());
+			}
+		}
+		return lista_centroidi;
 	}
 }
