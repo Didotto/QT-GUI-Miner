@@ -22,7 +22,7 @@ public class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializ
 		
 	}
 		
-	Tuple getCentroid(){
+	public Tuple getCentroid(){
 		return this.centroid;
 	}
 	
@@ -44,7 +44,7 @@ public class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializ
 		
 	}
 	
-	int  getSize(){
+	public int getSize(){
 		return this.clusteredData.size();
 	}
 	
