@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 import java.io.IOException;
 
 import java.net.SocketException;
-
+import java.util.LinkedList;
 public class DataVisualizationController extends Controller {
 	@FXML
 	private TableView<String> tableData;
@@ -37,11 +37,20 @@ public class DataVisualizationController extends Controller {
 	private void learningFromFile() throws SocketException, IOException, ClassNotFoundException, ServerException{
 		output.writeObject(3);
 		output.writeObject(model.getFileName());
+		LinkedList<String> risultato_schema;
+		LinkedList<LinkedList<String>> risultato_centroidi;
 		String result = (String)input.readObject();
-		if(result.contentEquals("OK"))
-			System.out.println((String)input.readObject());
+		if(result.contentEquals("OK")) {
+			//System.out.println((String)input.readObject());
+			risultato_schema=(LinkedList<String>)input.readObject();
+			risultato_centroidi=(LinkedList<LinkedList<String>>)input.readObject();
+			}
 		else throw new ServerException(result);
-		
+		System.out.println("Schema: " +risultato_schema);
+		System.out.println("Centroidi: ");
+		for (LinkedList<String> l: risultato_centroidi) {
+			System.out.println(l);
+		}
 	}
 	
 	private void learningFromDbTable() throws SocketException, IOException, ClassNotFoundException, ServerException{
