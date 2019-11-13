@@ -46,6 +46,10 @@ private static final String FXMLPATH = "../view/dataVisualization.fxml";
         
         controller.init(model, stage);
         controller.updateTable(isLoadDB);
+        //If i load from file ... i cain't save
+        if (!isLoadDB) {
+        	root.getChildren().get(1).setVisible(false);
+        }
 		stage.show();
 	}
 }
