@@ -56,12 +56,36 @@ public class DataVisualizationController extends Controller {
 	private void learningFromDbTable() throws SocketException, IOException, ClassNotFoundException, ServerException{
 		output.writeObject(1);
 		output.writeObject(model.getRadius());
+		LinkedList<String> risultato_schema;
+		LinkedList<LinkedList<LinkedList<String>>> risultato_tabella;
+		int numero_cluster;
 		String result = (String)input.readObject();
 		if(result.equals("OK")){
-			System.out.println("Number of Clusters:" + input.readObject());
-			System.out.println((String)input.readObject());
+			//recv risultato schema
+			risultato_schema=(LinkedList<String>)input.readObject();
+			numero_cluster=(int)input.readObject();
+			risultato_tabella=(LinkedList<LinkedList<LinkedList<String>>>)input.readObject();
+			
 		}
+
 		else throw new ServerException(result);
+		
+		System.out.println("Schema: " +risultato_schema);
+		for (LinkedList<LinkedList<String>> i: risultato_tabella) {
+			for (LinkedList<String> j: i) {
+				System.out.println("TUPLA: " +j);
+			}
+		}
+		
+	}
+	
+	private void storeTableFromDb() throws SocketException,ServerException,IOException,ClassNotFoundException{
+		output.writeObject(0);
+		output.writeObject(model.getTableName());
+		String result = (String)input.readObject();
+		if(!result.equals("OK"))
+			throw new ServerException(result);
+		
 	}
 	
 	public void updateTable(boolean isLoadDB) {
@@ -79,6 +103,7 @@ public class DataVisualizationController extends Controller {
 			}
 		}else {
 			try {
+				storeTableFromDb();
 				learningFromDbTable();
 			}catch(SocketException e) {
 				System.out.println("[!]Error: " + e.getMessage());
