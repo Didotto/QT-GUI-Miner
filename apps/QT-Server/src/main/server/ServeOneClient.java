@@ -113,7 +113,10 @@ public class ServeOneClient extends Thread {
 						try {
 							kmeans = new QTMiner(fileName);
 							out.writeObject("OK");
-							out.writeObject(kmeans.toString());
+							//send scheme
+							out.writeObject(kmeans.getSchemeList());
+							//send list of centroids
+							out.writeObject(kmeans.getCentroidsList());
 							System.out.println("Results sent");
 						} catch(FileNotFoundException e) {
 							System.out.println("[!] File " + fileName + " not found: " + e.getMessage());
