@@ -71,10 +71,13 @@ public class DataVisualizationController extends Controller {
 		else throw new ServerException(result);
 		
 		System.out.println("Schema: " +risultato_schema);
-		for (LinkedList<LinkedList<String>> i: risultato_tabella) {
-			for (LinkedList<String> j: i) {
-				System.out.println("TUPLA: " +j);
+		int j=1;
+		for(LinkedList<LinkedList<String>> clusters: risultato_tabella) {
+			System.out.println("Cluster " + j + ": ");
+			for(LinkedList<String> tuples: clusters) {
+				System.out.println(tuples);
 			}
+			j++;
 		}
 		
 	}
