@@ -131,4 +131,22 @@ public class QTMiner {
 		}
 		return lista_centroidi;
 	}
+	
+	public LinkedList<LinkedList<LinkedList<String>>> getDataList (Data data){
+		LinkedList<LinkedList<LinkedList<String>>> lista_tabella = new LinkedList<LinkedList<LinkedList<String>>>();
+		for(Cluster c: clusterSet) {
+			lista_tabella.add(new LinkedList<LinkedList<String>>());
+			
+			for(int tupleIndex: c) {
+				lista_tabella.getLast().add(new LinkedList<String>());
+				Tuple tuple = data.getItemSet(tupleIndex);
+				for(int i=0; i<tuple.getLength(); i++) {
+					lista_tabella.getLast().getLast().add(tuple.get(i).toString());
+				}
+				lista_tabella.getLast().getLast().add(((Double)tuple.getDistance(c.getCentroid())).toString());
+			}
+		}
+		
+		return lista_tabella;
+	}
 }
