@@ -46,8 +46,11 @@ public class ServeOneClient extends Thread {
 								kmeans = new QTMiner(radius);
 								int numberOfClusters = kmeans.compute(data);
 								out.writeObject("OK");
+								//send scheme list
+								out.writeObject(kmeans.getSchemeList());
+								//send data
 								out.writeObject(numberOfClusters);
-								out.writeObject(kmeans.toString(data));
+								out.writeObject(kmeans.getDataList(data));
 								
 								if((int)in.readObject() == 2) {
 									//2 - Store in file
