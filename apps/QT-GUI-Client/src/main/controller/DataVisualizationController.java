@@ -1,14 +1,22 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TableColumn;
+import javafx.scene.paint.Color;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+
+import javafx.scene.control.TableRow;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 
 import model.DataModel;
 import view.AlertDialog;
-import view.GearView;
+import view.SaveView;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,11 +24,10 @@ import java.io.IOException;
 
 import java.net.SocketException;
 import java.util.LinkedList;
-import javafx.scene.input.MouseEvent;
-import view.SaveView;
+import java.util.List;
 public class DataVisualizationController extends Controller {
 	@FXML
-	private TableView<String> tableData;
+	private TableView<List<String>> tableData;
 	
 	@FXML
 	private Button saveButton;
@@ -35,6 +42,28 @@ public class DataVisualizationController extends Controller {
 		super.init(model, controlledStage);
 		input = model.getInputStream();
 		output = model.getOutputStream();
+		tableData.setRowFactory(tableView -> new TableRow<List<String>>() {
+			@Override
+			protected void updateItem(List<String> item, boolean empty) {
+				super.updateItem(item, empty);
+				if(item == null) {
+					setGraphic(null);
+				}else {
+					int id = Integer.parseInt(item.get(0));
+					double r = ((id+5)*23 * 0.1d) % 1.0d;
+					double g = ((id+5)*23 * 0.2d) % 1.0d;
+					double b = ((id+5)*23 * 0.3d) % 1.0d;
+					Color background = Color.color(r, g, b);
+					background = background.brighter().brighter();
+					setStyle("-fx-background-color: #" + background.toString().substring(2, 8));
+				}
+				
+			}
+		});
+		
+		TableColumn<List<String>, String> column = new TableColumn<>("clusterId");
+		column.setCellValueFactory(x -> new ReadOnlyObjectWrapper(x.getValue().get(0)));
+		tableData.getColumns().add(column);
 	}
 	
 	private void learningFromFile() throws SocketException, IOException, ClassNotFoundException, ServerException{
@@ -47,13 +76,18 @@ public class DataVisualizationController extends Controller {
 			//System.out.println((String)input.readObject());
 			risultato_schema=(LinkedList<String>)input.readObject();
 			risultato_centroidi=(LinkedList<LinkedList<String>>)input.readObject();
-			}
-		else throw new ServerException(result);
-		System.out.println("Schema: " +risultato_schema);
-		System.out.println("Centroidi: ");
-		for (LinkedList<String> l: risultato_centroidi) {
-			System.out.println(l);
+		} else throw new ServerException(result);
+		int i=0;
+		ObservableList<List<String>> data = FXCollections.observableArrayList(risultato_centroidi);
+		for(String attribute: risultato_schema) {
+			final int  j = i;
+			TableColumn<List<String>, String> column = new TableColumn<>(attribute);
+			column.setCellValueFactory(x -> new ReadOnlyObjectWrapper(x.getValue().get(j)));
+			tableData.getColumns().add(column);
+			i++;
 		}
+		
+		tableData.setItems(data);
 	}
 	
 	private void learningFromDbTable() throws SocketException, IOException, ClassNotFoundException, ServerException{
@@ -69,20 +103,24 @@ public class DataVisualizationController extends Controller {
 			numero_cluster=(int)input.readObject();
 			risultato_tabella=(LinkedList<LinkedList<LinkedList<String>>>)input.readObject();
 			
-		}
-
-		else throw new ServerException(result);
+		} else throw new ServerException(result);
 		
-		System.out.println("Schema: " +risultato_schema);
-		int j=1;
-		for(LinkedList<LinkedList<String>> clusters: risultato_tabella) {
-			System.out.println("Cluster " + j + ": ");
-			for(LinkedList<String> tuples: clusters) {
-				System.out.println(tuples);
+		int i=0;
+		for(String attribute: risultato_schema) {
+			final int  j = i;
+			TableColumn<List<String>, String> column = new TableColumn<>(attribute);
+			column.setCellValueFactory(x -> new ReadOnlyObjectWrapper(x.getValue().get(j)));
+			tableData.getColumns().add(column);
+			i++;
+		}
+		
+		ObservableList<List<String>> data = FXCollections.observableArrayList();
+		for(List<LinkedList<String>> cluster: risultato_tabella) {
+			for(List<String> tuple: cluster) {
+				data.add(tuple);
 			}
-			j++;
 		}
-		
+		tableData.setItems(data);
 	}
 	
 	private void storeTableFromDb() throws SocketException,ServerException,IOException,ClassNotFoundException{
