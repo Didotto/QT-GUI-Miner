@@ -106,47 +106,55 @@ public class QTMiner {
 	}
 	
 	public LinkedList<String> getSchemeList(){
-		LinkedList<String> lista_attributi = new LinkedList<String>();
+		LinkedList<String> attributeList = new LinkedList<String>();
 		
 		Iterator<Cluster> it = clusterSet.iterator();
 		Cluster cluster = it.next();
 		Tuple centroid = cluster.getCentroid();
 		
+		attributeList.addFirst("Cluster ID");
 		for(int i=0; i< centroid.getLength(); i++) {
 			Item item = centroid.get(i);
 			Attribute attribute = item.getAttribute();
-			lista_attributi.add(i, attribute.getName());
+			attributeList.add(i, attribute.getName());
 		}
-		return lista_attributi;
+		return attributeList;
 	}
 	
 	public LinkedList<LinkedList<String>> getCentroidsList(){
-		LinkedList<LinkedList<String>> lista_centroidi = new LinkedList<LinkedList<String>>();
+		LinkedList<LinkedList<String>> centroidList = new LinkedList<LinkedList<String>>();
+		int i=0;
 		for (Cluster c: clusterSet) {
-			lista_centroidi.add(new LinkedList<String>());
+			centroidList.add(new LinkedList<String>());
+			centroidList.getLast().add(String.valueOf(i));
 			Tuple t = c.getCentroid();
 			for (int j=0;j<t.getLength();j++) {
-				lista_centroidi.getLast().add(t.get(j).getValue().toString());
+				
+				centroidList.getLast().add(t.get(j).getValue().toString());
 			}
+			i++;
 		}
-		return lista_centroidi;
+		return centroidList;
 	}
 	
 	public LinkedList<LinkedList<LinkedList<String>>> getDataList (Data data){
-		LinkedList<LinkedList<LinkedList<String>>> lista_tabella = new LinkedList<LinkedList<LinkedList<String>>>();
+		LinkedList<LinkedList<LinkedList<String>>> tableList = new LinkedList<LinkedList<LinkedList<String>>>();
+		int i=0;
 		for(Cluster c: clusterSet) {
-			lista_tabella.add(new LinkedList<LinkedList<String>>());
+			tableList.add(new LinkedList<LinkedList<String>>());
 			
 			for(int tupleIndex: c) {
-				lista_tabella.getLast().add(new LinkedList<String>());
+				tableList.getLast().add(new LinkedList<String>());
+				tableList.getLast().getLast().add(String.valueOf(i));
 				Tuple tuple = data.getItemSet(tupleIndex);
-				for(int i=0; i<tuple.getLength(); i++) {
-					lista_tabella.getLast().getLast().add(tuple.get(i).toString());
+				for(int k=0; k<tuple.getLength(); k++) {
+					tableList.getLast().getLast().add(tuple.get(k).toString());
 				}
-				lista_tabella.getLast().getLast().add(((Double)tuple.getDistance(c.getCentroid())).toString());
+				tableList.getLast().getLast().add(((Double)tuple.getDistance(c.getCentroid())).toString());
 			}
+			i++;
 		}
 		
-		return lista_tabella;
+		return tableList;
 	}
 }
