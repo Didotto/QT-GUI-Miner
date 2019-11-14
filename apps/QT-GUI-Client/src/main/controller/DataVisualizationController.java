@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.stage.WindowEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
@@ -9,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.collections.FXCollections;
 
 import javafx.scene.control.TableRow;
@@ -60,6 +62,21 @@ public class DataVisualizationController extends Controller {
 				
 			}
 		});
+		controlledStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, new EventHandler<WindowEvent>(){
+            @Override
+            public void handle(WindowEvent window)
+            {
+                closeWindow(window);
+            }
+        });
+	}
+	
+	public void closeWindow(WindowEvent window) {
+		try {
+			output.writeObject(-1);
+		}catch (IOException e) {
+			System.out.println("[!]Error: " + e.getMessage());
+		}
 	}
 	
 	private void learningFromFile() throws SocketException, IOException, ClassNotFoundException, ServerException{
