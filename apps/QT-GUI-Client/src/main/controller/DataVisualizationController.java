@@ -60,10 +60,6 @@ public class DataVisualizationController extends Controller {
 				
 			}
 		});
-		
-		TableColumn<List<String>, String> column = new TableColumn<>("clusterId");
-		column.setCellValueFactory(x -> new ReadOnlyObjectWrapper(x.getValue().get(0)));
-		tableData.getColumns().add(column);
 	}
 	
 	private void learningFromFile() throws SocketException, IOException, ClassNotFoundException, ServerException{
