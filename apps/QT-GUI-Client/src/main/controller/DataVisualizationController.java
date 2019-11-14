@@ -8,6 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 
 import model.DataModel;
 import view.AlertDialog;
+import view.GearView;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,6 +16,8 @@ import java.io.IOException;
 
 import java.net.SocketException;
 import java.util.LinkedList;
+import javafx.scene.input.MouseEvent;
+import view.SaveView;
 public class DataVisualizationController extends Controller {
 	@FXML
 	private TableView<String> tableData;
@@ -119,4 +122,19 @@ public class DataVisualizationController extends Controller {
 			}
 		}
 	}
+	
+	public void saveClicked (MouseEvent e) {
+		try {
+			new SaveView(this.model);
+			//controlledStage.close();
+		}catch (IOException ex){
+			System.out.println("Error: " + ex.getMessage());
+		}
+	}
+	
+
+	 public void plotClicked (MouseEvent e){
+	  
+	 }
+	 
 }
