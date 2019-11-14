@@ -34,14 +34,16 @@ public class ServeOneClient extends Thread {
 		boolean repeat = true;
 		try {
 			do {
-				switch((int)in.readObject()) {
+				System.out.println("New request");
+				int choise = (int)in.readObject();
+				switch(choise) {
 					case 0:
 						//0 - Store from DB
 						try {
 							String table = (String) in.readObject();
 							Data data = new Data(table);
 							out.writeObject("OK");
-							while((int)in.readObject() == 1) {
+							if((int)in.readObject() == 1) {
 								//1 - Learning from DB
 								double radius = (double) in.readObject();
 								kmeans = new QTMiner(radius);
@@ -80,11 +82,13 @@ public class ServeOneClient extends Thread {
 												System.out.println("File overwritted: " + fileName);
 												out.writeObject("OK");
 												//saveRepeat = false;
+											} else {
+												System.out.println("File was not overwritten");
 											}
 										}
 									
 									}else {
-										System.out.print("L'utente chiude la finestra: "+risposta);
+										System.out.println("The user closed his data visualization: " + risposta);
 										dvFinestraAperta=false;
 									}
 								}while(dvFinestraAperta);
