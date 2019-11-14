@@ -112,11 +112,11 @@ public class QTMiner {
 		Cluster cluster = it.next();
 		Tuple centroid = cluster.getCentroid();
 		
-		attributeList.addFirst("Cluster ID");
+		attributeList.add("Cluster ID");
 		for(int i=0; i< centroid.getLength(); i++) {
 			Item item = centroid.get(i);
 			Attribute attribute = item.getAttribute();
-			attributeList.add(i, attribute.getName());
+			attributeList.add(attribute.getName());
 		}
 		return attributeList;
 	}
