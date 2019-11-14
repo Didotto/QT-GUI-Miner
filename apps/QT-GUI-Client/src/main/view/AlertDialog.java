@@ -12,6 +12,7 @@ public class AlertDialog extends Alert {
 	
 	private final static String ERROR_IMAGE = "error_icon.png";
 	
+	
 	public AlertDialog (Alert.AlertType type, String title, String header, String content, String img) {
 		super(type);
 		this.setTitle(title);
@@ -35,9 +36,12 @@ public class AlertDialog extends Alert {
 		Stage stage = (Stage) this.getDialogPane().getScene().getWindow();
 		if(type == Alert.AlertType.WARNING) {
 			stage.getIcons().add(new Image(IMAGE_FOLDER + WARNING_IMAGE));
-		} else {
+			this.showAndWait();
+		} else if(type == Alert.AlertType.ERROR) {
 			stage.getIcons().add(new Image(IMAGE_FOLDER + ERROR_IMAGE));
+			this.showAndWait();
+		}else {
+			stage.getIcons().add(new Image(IMAGE_FOLDER + WARNING_IMAGE));
 		}
-		this.showAndWait();
 	}
 }
