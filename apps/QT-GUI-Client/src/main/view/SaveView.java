@@ -43,14 +43,9 @@ public class SaveView {
         stage.getIcons().add(new Image(ICONPATH));
         
         stage.initModality(Modality.APPLICATION_MODAL);
-        /*
+        
         controller.init(model, stage);
-        controller.updateTable(isLoadDB);
-        //If i load from file ... i cain't save
-        if (!isLoadDB) {
-        	root.getChildren().get(1).setVisible(false);
-        }
-		stage.show();
-		*/
+        stage.setResizable(false);
+        stage.show();
 	}
 }
