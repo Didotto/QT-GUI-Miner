@@ -13,6 +13,7 @@ import data.Data;
 import database.DatabaseConnectionException;
 import database.NoValueException;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import data.EmptyDatasetException;
 
@@ -47,7 +48,9 @@ public class ServeOneClient extends Thread {
 								int numberOfClusters = kmeans.compute(data);
 								out.writeObject("OK");
 								//send scheme list
-								out.writeObject(kmeans.getSchemeList());
+								LinkedList<String> scheme = kmeans.getSchemeList();
+								scheme.addLast("Distance");
+								out.writeObject(scheme);
 								//send data
 								out.writeObject(numberOfClusters);
 								out.writeObject(kmeans.getDataList(data));
