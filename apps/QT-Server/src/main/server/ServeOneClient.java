@@ -54,49 +54,38 @@ public class ServeOneClient extends Thread {
 								//send data
 								out.writeObject(numberOfClusters);
 								out.writeObject(kmeans.getDataList(data));
-								
-								/*
-								do {
-                                int risposta = (int)in.readObject()
-                                if(risposta == 2) {
-                                    //salva
-                                }else {
-                                    dvFinestraAperta= false;
-                                }
-								
-                            }while(dvFinestraAperta);
-                            */
-								int risposta = (int)in.readObject();
+
 								boolean dvFinestraAperta = true; 
 								do {
-								if(risposta == 2) {
-									//2 - Store in file
-									System.out.println("Saving file");
-									//boolean saveRepeat = true; 
-									String fileName = (String)in.readObject();
-									System.out.println("FileName riceved: " + fileName);
-									if(! new File(fileName + ".dmp").exists()) {
-										out.writeObject("OK");
-										kmeans.save(fileName + ".dmp");
-										System.out.println("File saved " + fileName);
-										out.writeObject("OK");
-										//saveRepeat = false;
-									} else {
-										System.out.println("Unable to save file - File already exist");
-										System.out.println("I'm asking for overwrite or not");
-										out.writeObject("File already exist");
-										String overwrite = (String)in.readObject();
-										if(overwrite.toUpperCase().equals("Y")) {
+									int risposta = (int)in.readObject();
+									if(risposta == 2) {
+										//2 - Store in file
+										System.out.println("Saving file");
+										//boolean saveRepeat = true; 
+										String fileName = (String)in.readObject();
+										System.out.println("FileName riceved: " + fileName);
+										if(! new File(fileName + ".dmp").exists()) {
+											out.writeObject("OK");
 											kmeans.save(fileName + ".dmp");
-											System.out.println("File overwritted: " + fileName);
+											System.out.println("File saved " + fileName);
 											out.writeObject("OK");
 											//saveRepeat = false;
+										} else {
+											System.out.println("Unable to save file - File already exist");
+											System.out.println("I'm asking for overwrite or not");
+											out.writeObject("File already exist");
+											String overwrite = (String)in.readObject();
+											if(overwrite.toUpperCase().equals("Y")) {
+												kmeans.save(fileName + ".dmp");
+												System.out.println("File overwritted: " + fileName);
+												out.writeObject("OK");
+												//saveRepeat = false;
+											}
 										}
-									}
 									
-								}else {
-									System.out.print("L'utente chiude la finestra: "+risposta);
-									dvFinestraAperta=false;
+									}else {
+										System.out.print("L'utente chiude la finestra: "+risposta);
+										dvFinestraAperta=false;
 									}
 								}while(dvFinestraAperta);
 							}
