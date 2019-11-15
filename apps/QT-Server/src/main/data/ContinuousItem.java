@@ -10,7 +10,7 @@ public class ContinuousItem extends Item {
 	
 	public double distance(Object a) {
 		ContinuousAttribute attribute = (ContinuousAttribute) this.getAttribute();
-		return Math.abs(attribute.getScaledValue((double)this.getValue() - attribute.getScaledValue((double)((ContinuousItem)a).getValue())));
+		return Math.abs(attribute.getScaledValue((double)this.getValue()) - attribute.getScaledValue((double)((ContinuousItem)a).getValue()));
 	}
 
 }
