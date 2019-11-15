@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ScatterPlotController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="SCATTER PLOT" AnchorPane.leftAnchor="14.0">
@@ -21,7 +20,7 @@
           <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="scatterPlot" side="LEFT" />
+          <NumberAxis side="LEFT" />
         </yAxis>
       </ScatterChart>
       <ComboBox fx:id="comboBox1" layoutX="14.0" layoutY="103.0" prefWidth="150.0" />
