@@ -28,16 +28,22 @@ public class DataModel extends Observable{
 	}
 	
 	public void connect(String ipAddress, int port) throws IOException, UnknownHostException {
-		InetSocketAddress endpoint = new InetSocketAddress(InetAddress.getByName(ipAddress), port);
-		mySocket.connect(endpoint);
+		mySocket = new Socket (InetAddress.getByName(ipAddress),port);
 		output = new ObjectOutputStream(mySocket.getOutputStream());
 		input = new ObjectInputStream(mySocket.getInputStream());
 		setChanged();
 		notifyObservers();
 	}
 	
+	public void disconnect () throws IOException{
+		mySocket.close();
+		System.out.print(mySocket.isConnected());
+		setChanged();
+		notifyObservers();
+	}
+	
 	public boolean isConnected() {
-		return mySocket.isConnected();
+		return mySocket.isConnected()&&(!mySocket.isClosed());
 	}
 	
 	public ObjectInputStream getInputStream(){
