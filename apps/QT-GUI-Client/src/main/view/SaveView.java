@@ -11,41 +11,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.DataModel;
 
-public class SaveView {
-	private static final String FXMLPATH = "../layouts/saveOptions.fxml";
+public class SaveView extends View {
+	private static final String LAYOUT = "saveOptions.fxml";
 	
-	private static final String ICONPATH = "file:src/main/resources/saveIcon.png";
+	private static final String ICON = "saveIcon.png";
 	
 	private static final String TITLE = "SAVE OPTIONS";
 	
-	private FXMLLoader loader;
-	
-	private SaveController controller;
-	
-	private Stage stage;
-	
-	private Scene scene;
-	
-	private AnchorPane root;
-	
 	public SaveView(DataModel model) throws IOException {
-		loader = new FXMLLoader(getClass().getResource(FXMLPATH));
-		root = (AnchorPane)loader.load();
-		controller = loader.getController();
-		
-		
-		stage = new Stage();
-		scene = new Scene(root, root.getPrefWidth(), root.getPrefHeight());
-		stage.setScene(scene);
-		
-        stage.setTitle(TITLE);
+		super(model, LAYOUT, ICON, TITLE);
         
-        stage.getIcons().add(new Image(ICONPATH));
+        getStage().initModality(Modality.APPLICATION_MODAL);
         
-        stage.initModality(Modality.APPLICATION_MODAL);
-        
-        controller.init(model, stage);
-        stage.setResizable(false);
-        stage.show();
+        getController().init(model, getStage());
+        getStage().setResizable(false);
+        getStage().show();
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import controller.DataVisualizationController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -13,47 +14,28 @@ import javafx.stage.Stage;
 import model.DataModel;
 import controller.ServerException;
 
-public class DataVisualizationView {
-private static final String FXMLPATH = "../layouts/dataVisualization.fxml";
+public class DataVisualizationView extends View {
+	private static final String LAYOUT = "dataVisualization.fxml";
 	
-	private static final String ICONPATH = "file:src/main/resources/mining.png";
+	private static final String ICON = "mining.png";
 	
 	private static final String TITLE = "DATA VISUALIZATION";
 	
-	private FXMLLoader loader;
-	
-	private DataVisualizationController controller;
-	
-	private Stage stage;
-	
-	private Scene scene;
-	
-	private AnchorPane root;
-	
 	public DataVisualizationView(DataModel model, boolean isLoadDB) throws IOException {
-		loader = new FXMLLoader(getClass().getResource(FXMLPATH));
-		root = (AnchorPane)loader.load();
-		controller = loader.getController();
-		
-		
-		stage = new Stage();
-		scene = new Scene(root, root.getPrefWidth(), root.getPrefHeight());
-		stage.setScene(scene);
-		
-        stage.setTitle(TITLE);
+        super(model, LAYOUT, ICON, TITLE);
         
-        stage.getIcons().add(new Image(ICONPATH));
+        getStage().initModality(Modality.APPLICATION_MODAL);
+        getController().init(model, getStage());
         
-        stage.initModality(Modality.APPLICATION_MODAL);
-        
-        controller.init(model, stage);
-        
+        AnchorPane root = (AnchorPane)getStage().getScene().getRoot();
+        getStage().setMinWidth(root.getPrefWidth());
+        getStage().setMinHeight(root.getPrefHeight());
         if (!isLoadDB) {
         	root.getChildren().get(1).setVisible(false);
         }
         try {
-        	controller.updateTable(isLoadDB);
-        	stage.show();
+        	((DataVisualizationController)getController()).updateTable(isLoadDB);
+        	getStage().show();
         }catch (ServerException e) {
         	new AlertDialog(AlertType.ERROR,
 					"ERROR",

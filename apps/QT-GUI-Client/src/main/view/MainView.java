@@ -1,68 +1,34 @@
 package view;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import model.DataModel;
 import controller.MainController;
 
+import java.io.IOException;
 
 import javafx.application.Platform;
+import javafx.scene.control.SplitPane;
 
-public class MainView extends Application{
-	private static final String FXMLPATH = "../layouts/main.fxml";
-	
-	private static final String ICONPATH = "file:src/main/resources/mining.png";
-	
+public class MainView extends View{
 	private static final String TITLE = "QT-Miner JavaFX";
 	
-	private FXMLLoader loader;
+	private static final String ICON = "mining.png";
 	
-	private MainController controller;
+	private static final String LAYOUT = "main.fxml";
 	
-	private Scene scene;
-	
-	private Stage stage;
-	
-	private AnchorPane root;
-	
-	public static void main(String args[]) {
-		launch(args);
-	}
-	
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		loader = new FXMLLoader(getClass().getResource(FXMLPATH));
-		root = (AnchorPane)loader.load();
-		controller = loader.getController();
-		
-		DataModel model = new DataModel();
+	public MainView(DataModel model) throws IOException {
+		super(model, LAYOUT, ICON, TITLE);
+		MainController controller = (MainController)getController();
 		model.addObserver(controller);
-		
-		stage = new Stage();
-        scene = new Scene(root, 550, 500);
-        stage.setScene(scene);
-        stage.setTitle(TITLE);
-        
-        //Disable Split Pane divider
-        SplitPane splitPane = (SplitPane)scene.lookup("#splitPane");
+		SplitPane splitPane = (SplitPane)getStage().getScene().lookup("#splitPane");
         splitPane.lookupAll(".split-pane-divider").stream()
-    		.forEach(div ->  div.setMouseTransparent(true) );
-
-        stage.getIcons().add(new Image(ICONPATH));
-		
-        stage.setMinHeight(500);
-        stage.setMinWidth(500);
+    		.forEach(div ->  div.setMouseTransparent(true));
+        getStage().setMinHeight(500);
+        getStage().setMinWidth(500);
         
-        stage.setOnHidden(e -> Platform.exit());
-       
-        controller.init(model, stage);
-        stage.show(); 
+        getStage().setOnHidden(e -> Platform.exit());
+        
+        controller.init(model, getStage());
+        getStage().show();
 	}
-
 }
