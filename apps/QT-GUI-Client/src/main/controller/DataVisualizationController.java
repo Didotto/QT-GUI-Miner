@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.stage.WindowEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
@@ -81,7 +81,7 @@ public class DataVisualizationController extends Controller {
 	
 	private void learningFromFile() throws SocketException, IOException, ClassNotFoundException, ServerException{
 		output.writeObject(3);
-		output.writeObject(model.getFileName());
+		output.writeObject(model.getFileName()+".dmp");
 		LinkedList<String> risultato_schema;
 		LinkedList<LinkedList<String>> risultato_centroidi;
 		String result = (String)input.readObject();
@@ -99,7 +99,8 @@ public class DataVisualizationController extends Controller {
 			tableData.getColumns().add(column);
 			i++;
 		}
-		
+		Double radius = (Double)input.readObject();
+		System.out.println("RAGGIO RICEVUTO: "+radius);
 		tableData.setItems(data);
 	}
 	
@@ -145,18 +146,19 @@ public class DataVisualizationController extends Controller {
 		
 	}
 	
-	public void updateTable(boolean isLoadDB) {
+	public void updateTable (boolean isLoadDB) throws ServerException{
 		if(!isLoadDB) {
 			try {
 				learningFromFile();
 			}catch(SocketException e) {
 				System.out.println("[!]Error: " + e.getMessage());
+				controlledStage.close();
 			}catch(IOException e){
 				System.out.println("[!]Error: " + e.getMessage());
+				controlledStage.close();
 			}catch(ClassNotFoundException e) {
 				System.out.println("[!]Error: " + e.getMessage());
-			}catch(ServerException e) {
-				System.out.println("[!]Error: " + e.getMessage());
+				controlledStage.close();
 			}
 		}else {
 			try {
