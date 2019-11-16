@@ -5,14 +5,16 @@ import java.io.IOException;
 import controller.DataVisualizationController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.DataModel;
+import controller.ServerException;
 
 public class DataVisualizationView {
-private static final String FXMLPATH = "../view/dataVisualization.fxml";
+private static final String FXMLPATH = "../layouts/dataVisualization.fxml";
 	
 	private static final String ICONPATH = "file:src/main/resources/mining.png";
 	
@@ -29,9 +31,9 @@ private static final String FXMLPATH = "../view/dataVisualization.fxml";
 	private AnchorPane root;
 	
 	public DataVisualizationView(DataModel model, boolean isLoadDB) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLPATH));
+		loader = new FXMLLoader(getClass().getResource(FXMLPATH));
 		root = (AnchorPane)loader.load();
-		DataVisualizationController controller = loader.getController();
+		controller = loader.getController();
 		
 		
 		stage = new Stage();
@@ -45,11 +47,21 @@ private static final String FXMLPATH = "../view/dataVisualization.fxml";
         stage.initModality(Modality.APPLICATION_MODAL);
         
         controller.init(model, stage);
-        controller.updateTable(isLoadDB);
-        //If i load from file ... i cain't save
+        
         if (!isLoadDB) {
         	root.getChildren().get(1).setVisible(false);
         }
-		stage.show();
+        try {
+        	controller.updateTable(isLoadDB);
+        	stage.show();
+        }catch (ServerException e) {
+        	new AlertDialog(AlertType.ERROR,
+					"ERROR",
+					"ERROR",
+					"File doesn't Exist!"
+					);
+        }
+		
+		
 	}
 }
