@@ -18,6 +18,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 
 import model.DataModel;
 import view.AlertDialog;
+import view.PieChartView;
 import view.SaveView;
 
 import java.io.ObjectInputStream;
@@ -40,6 +41,8 @@ public class DataVisualizationController extends Controller {
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
 	
+	LinkedList<LinkedList<LinkedList<String>>> completeData;
+	
 	public void init(DataModel model, Stage controlledStage) {
 		super.init(model, controlledStage);
 		input = model.getInputStream();
@@ -52,8 +55,10 @@ public class DataVisualizationController extends Controller {
 					setGraphic(null);
 				}else {
 					int id = Integer.parseInt(item.get(0));
-					double hue = (id * 67.0d) % 360.0d;
-					Color background = Color.hsb(hue, 0.3d, 0.8d);
+					Color background = Color.hsb(
+							(id * 67.0d) % 360.0d,
+							(0.3d + id*0.01) %1.0d,
+							0.8d);
 					setStyle("-fx-background-color: #" + background.toString().substring(2, 8));
 				}
 				
@@ -105,14 +110,13 @@ public class DataVisualizationController extends Controller {
 		output.writeObject(1);
 		output.writeObject(model.getRadius());
 		LinkedList<String> risultato_schema;
-		LinkedList<LinkedList<LinkedList<String>>> risultato_tabella;
 		int numero_cluster;
 		String result = (String)input.readObject();
 		if(result.equals("OK")){
 			//recv risultato schema
 			risultato_schema=(LinkedList<String>)input.readObject();
 			numero_cluster=(int)input.readObject();
-			risultato_tabella=(LinkedList<LinkedList<LinkedList<String>>>)input.readObject();
+			completeData=(LinkedList<LinkedList<LinkedList<String>>>)input.readObject();
 			
 		} else throw new ServerException(result);
 		
@@ -126,7 +130,7 @@ public class DataVisualizationController extends Controller {
 		}
 		
 		ObservableList<List<String>> data = FXCollections.observableArrayList();
-		for(List<LinkedList<String>> cluster: risultato_tabella) {
+		for(List<LinkedList<String>> cluster: completeData) {
 			for(List<String> tuple: cluster) {
 				data.add(tuple);
 			}
@@ -184,7 +188,11 @@ public class DataVisualizationController extends Controller {
 	
 
 	 public void plotClicked (MouseEvent e){
-	  
+		 try {
+			 new PieChartView(this.model, completeData);
+		 } catch (IOException ex) {
+			 System.out.println("Error: " + ex.getMessage());
+		 }
 	 }
 	 
 }
