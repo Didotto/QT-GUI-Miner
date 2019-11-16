@@ -134,6 +134,8 @@ public class ServeOneClient extends Thread {
 							out.writeObject(kmeans.getSchemeList());
 							//send list of centroids
 							out.writeObject(kmeans.getCentroidsList());
+							//send radius
+							out.writeObject(kmeans.getRadius());
 							System.out.println("Results sent");
 						} catch(FileNotFoundException e) {
 							System.out.println("[!] File " + fileName + " not found: " + e.getMessage());
