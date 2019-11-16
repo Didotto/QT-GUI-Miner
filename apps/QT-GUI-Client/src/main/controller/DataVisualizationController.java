@@ -52,11 +52,8 @@ public class DataVisualizationController extends Controller {
 					setGraphic(null);
 				}else {
 					int id = Integer.parseInt(item.get(0));
-					double r = ((id+5)*23 * 0.1d) % 1.0d;
-					double g = ((id+5)*23 * 0.2d) % 1.0d;
-					double b = ((id+5)*23 * 0.3d) % 1.0d;
-					Color background = Color.color(r, g, b);
-					background = background.brighter().brighter();
+					double hue = (id * 67.0d) % 360.0d;
+					Color background = Color.hsb(hue, 0.3d, 0.8d);
 					setStyle("-fx-background-color: #" + background.toString().substring(2, 8));
 				}
 				
