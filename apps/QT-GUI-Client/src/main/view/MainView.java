@@ -21,8 +21,7 @@ public class MainView extends View{
 		MainController controller = (MainController)getController();
 		model.addObserver(controller);
 		SplitPane splitPane = (SplitPane)getStage().getScene().lookup("#splitPane");
-        splitPane.lookupAll(".split-pane-divider").stream()
-    		.forEach(div ->  div.setMouseTransparent(true));
+        
         getStage().setMinHeight(500);
         getStage().setMinWidth(500);
         
@@ -30,5 +29,7 @@ public class MainView extends View{
         
         controller.init(model, getStage());
         getStage().show();
+        splitPane.lookupAll(".split-pane-divider").stream()
+			.forEach(div ->  div.setMouseTransparent(true));
 	}
 }
