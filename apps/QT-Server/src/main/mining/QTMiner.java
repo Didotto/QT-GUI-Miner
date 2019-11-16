@@ -157,4 +157,8 @@ public class QTMiner {
 		
 		return tableList;
 	}
+	
+	public double getRadius() {
+		return this.radius;
+	}
 }
