@@ -17,7 +17,6 @@ import model.DataModel;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.ButtonType;
 import java.util.Optional;
-import javafx.stage.WindowEvent;
 
 public class SaveController extends Controller{
 	@FXML
@@ -114,16 +113,3 @@ public class SaveController extends Controller{
 	}
 	
 }
-
-
-
-/*
-String answere = null;
-do {
-	answere= Keyboard.readString();
-	// Ho aggiunto
-	if (answere.toUpperCase().equals("Y")) repeat = false;
-	//
-} while(!(answere.toUpperCase().equals("Y") || answere.toUpperCase().equals("N")));
-out.writeObject(answere);
-*/

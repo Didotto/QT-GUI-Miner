@@ -12,7 +12,6 @@ import model.DataModel;
 import javafx.scene.control.Button;
 
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.binding.Bindings;
 
 import view.AlertDialog;

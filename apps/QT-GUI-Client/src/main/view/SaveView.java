@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import model.DataModel;
 
 public class SaveView {
-	private static final String FXMLPATH = "../view/saveOptions.fxml";
+	private static final String FXMLPATH = "../layouts/saveOptions.fxml";
 	
 	private static final String ICONPATH = "file:src/main/resources/saveIcon.png";
 	
@@ -29,9 +29,9 @@ public class SaveView {
 	private AnchorPane root;
 	
 	public SaveView(DataModel model) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLPATH));
+		loader = new FXMLLoader(getClass().getResource(FXMLPATH));
 		root = (AnchorPane)loader.load();
-		SaveController controller = loader.getController();
+		controller = loader.getController();
 		
 		
 		stage = new Stage();

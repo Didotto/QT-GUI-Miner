@@ -13,7 +13,7 @@ import controller.GearController;
 import model.DataModel;
 
 public class GearView {
-	private static final String FXMLPATH = "../view/connectionOptions.fxml";
+	private static final String FXMLPATH = "../layouts/connectionOptions.fxml";
 	
 	private static final String ICONPATH = "file:src/main/resources/rotella.png";
 	
@@ -30,10 +30,9 @@ public class GearView {
 	private AnchorPane root;
 	
 	public GearView(DataModel model) throws IOException {
-		//probabilmente va definito in una nuova classe View
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLPATH));
+		loader = new FXMLLoader(getClass().getResource(FXMLPATH));
 		root = (AnchorPane)loader.load();
-		GearController controller = loader.getController();
+		controller = loader.getController();
 		
 		
 		stage = new Stage();

@@ -1,23 +1,18 @@
 package controller;
 
 import javafx.fxml.FXML;
-//import javafx.fxml.Initializable;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ComboBox;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 
 import javafx.beans.binding.BooleanBinding;
@@ -26,6 +21,7 @@ import javafx.beans.binding.Bindings;
 import java.io.IOException;
 
 import view.GearView;
+import view.AlertDialog;
 import view.DataVisualizationView;
 import model.DataModel;
 
@@ -112,7 +108,6 @@ public class MainController extends Controller implements Observer{
 		DataModel m = (DataModel)obs;
 		if(m.isConnected()) {
 			statusCircle.setFill(Color.GREEN);
-			//statusCircle.setFill(Color.BLUE);
 		}else {
 			statusCircle.setFill(Color.RED);
 		}
@@ -128,8 +123,18 @@ public class MainController extends Controller implements Observer{
 				model.setFileName(fileName.getText());
 				new DataVisualizationView(this.model, false);
 			}
-		}catch (IOException | NumberFormatException e){
-			//TO-DO Alert
+		}catch (IOException e) {
+			new AlertDialog(AlertType.ERROR,
+					"FATAL ERROR",
+					"ERROR LOADING FXML",
+					"There are problems with loading the FXML file!"
+					);
+		}catch (NumberFormatException e) {
+			new AlertDialog(AlertType.ERROR,
+					"ERROR",
+					"WRONG RADIUS FORM",
+					"Insert numeric value for Radius!"
+					);
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
