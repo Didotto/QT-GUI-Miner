@@ -16,14 +16,16 @@ public class DataModel extends Observable{
 	
 	private ObjectOutputStream output;
 	
-	private String tableName;
+	private FileData fileData;
 	
-	private Double radius;
+	private DatabaseData databaseData;
 	
-	private String fileName;
+	private boolean isLoadDB;
 	
 	public DataModel() {
 		mySocket = new Socket();
+		fileData = new FileData();
+		databaseData = new DatabaseData();
 	}
 	
 	public void connect(String ipAddress, int port) throws IOException, UnknownHostException {
@@ -52,28 +54,29 @@ public class DataModel extends Observable{
 	public ObjectOutputStream getOutputStream(){
 		return output;
 	}
-	
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+
+	public FileData getFileData() {
+		return fileData;
+	}
+
+	public void setFileData(FileData fileData) {
+		this.fileData = fileData;
+	}
+
+	public DatabaseData getDatabaseData() {
+		return databaseData;
+	}
+
+	public void setDatabaseData(DatabaseData databaseData) {
+		this.databaseData = databaseData;
+	}
+
+	public boolean isLoadDB() {
+		return isLoadDB;
+	}
+
+	public void setLoadDB(boolean isLoadDB) {
+		this.isLoadDB = isLoadDB;
 	}
 	
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
-	}
-	
-	public void setRadius(Double radius) {
-		this.radius = radius;
-	}
-	
-	public String getFileName() {
-		return fileName;
-	}
-	
-	public String getTableName() {
-		return tableName;
-	}
-	
-	public Double getRadius() {
-		return radius;
-	}
 }

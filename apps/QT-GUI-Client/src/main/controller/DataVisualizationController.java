@@ -43,11 +43,6 @@ public class DataVisualizationController extends Controller {
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
 	
-	private Double radiusFile;
-	private LinkedList<String> scheme;
-	private LinkedList<LinkedList<String>> centroidData;
-	private LinkedList<LinkedList<LinkedList<String>>> completeData;
-	
 	public void init(DataModel model, Stage controlledStage) {
 		super.init(model, controlledStage);
 		input = model.getInputStream();
@@ -88,39 +83,38 @@ public class DataVisualizationController extends Controller {
 	
 	private void learningFromFile() throws SocketException, IOException, ClassNotFoundException, ServerException{
 		output.writeObject(3);
-		output.writeObject(model.getFileName()+".dmp");
+		output.writeObject(model.getFileData().getFileName()+".dmp");
 		String result = (String)input.readObject();
 		if(result.contentEquals("OK")) {
-			scheme = (LinkedList<String>)input.readObject();
-			centroidData = (LinkedList<LinkedList<String>>)input.readObject();
+			model.getFileData().setScheme((LinkedList<String>)input.readObject());
+			model.getFileData().setData((LinkedList<LinkedList<String>>)input.readObject());
+			model.getFileData().setRadius((Double)input.readObject());
 		} else throw new ServerException(result);
 		int i=0;
-		ObservableList<List<String>> data = FXCollections.observableArrayList(centroidData);
-		for(String attribute: scheme) {
+		ObservableList<List<String>> data = FXCollections.observableArrayList(model.getFileData().getData());
+		for(String attribute: model.getFileData().getScheme()) {
 			final int  j = i;
 			TableColumn<List<String>, String> column = new TableColumn<>(attribute);
 			column.setCellValueFactory(x -> new ReadOnlyObjectWrapper(x.getValue().get(j)));
 			tableData.getColumns().add(column);
 			i++;
 		}
-		radiusFile = (Double)input.readObject();
 		tableData.setItems(data);
 	}
 	
 	private void learningFromDbTable() throws SocketException, IOException, ClassNotFoundException, ServerException{
 		output.writeObject(1);
-		output.writeObject(model.getRadius());
-		LinkedList<String> risultato_schema;
+		output.writeObject(model.getDatabaseData().getRadius());
 		String result = (String)input.readObject();
 		if(result.equals("OK")){
 			//recv risultato schema
-			risultato_schema = (LinkedList<String>)input.readObject();
-			completeData = (LinkedList<LinkedList<LinkedList<String>>>)input.readObject();
+			model.getDatabaseData().setScheme((LinkedList<String>)input.readObject());
+			model.getDatabaseData().setData((LinkedList<LinkedList<LinkedList<String>>>)input.readObject());
 			
 		} else throw new ServerException(result);
 		
 		int i=0;
-		for(String attribute: risultato_schema) {
+		for(String attribute: model.getDatabaseData().getScheme()) {
 			final int  j = i;
 			TableColumn<List<String>, String> column = new TableColumn<>(attribute);
 			column.setCellValueFactory(x -> new ReadOnlyObjectWrapper(x.getValue().get(j)));
@@ -129,7 +123,7 @@ public class DataVisualizationController extends Controller {
 		}
 		
 		ObservableList<List<String>> data = FXCollections.observableArrayList();
-		for(List<LinkedList<String>> cluster: completeData) {
+		for(List<LinkedList<String>> cluster: model.getDatabaseData().getData()) {
 			for(List<String> tuple: cluster) {
 				data.add(tuple);
 			}
@@ -139,7 +133,7 @@ public class DataVisualizationController extends Controller {
 	
 	private void storeTableFromDb() throws SocketException,ServerException,IOException,ClassNotFoundException{
 		output.writeObject(0);
-		output.writeObject(model.getTableName());
+		output.writeObject(model.getDatabaseData().getDatabaseTable());
 		String result = (String)input.readObject();
 		if(!result.equals("OK"))
 			throw new ServerException(result);
@@ -149,7 +143,7 @@ public class DataVisualizationController extends Controller {
 	public void updateTable (boolean isLoadDB) throws ServerException, IOException, SocketException, ClassNotFoundException{
 		if(!isLoadDB) {
 			learningFromFile();
-			radiusLabel.setText("Radius : " + radiusFile);
+			radiusLabel.setText("Radius : " + model.getFileData().getRadius());
 		}else {
 			storeTableFromDb();
 			learningFromDbTable();
@@ -168,7 +162,7 @@ public class DataVisualizationController extends Controller {
 
 	 public void plotClicked (MouseEvent e){
 		 try {
-			 new PieChartView(this.model, completeData);
+			 new PieChartView(this.model);
 		 } catch (IOException ex) {
 			 System.out.println("Error: " + ex.getMessage());
 		 }

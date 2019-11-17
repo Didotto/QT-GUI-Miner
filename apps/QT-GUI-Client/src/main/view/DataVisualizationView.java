@@ -17,7 +17,7 @@ public class DataVisualizationView extends View {
 	
 	private static final String TITLE = "DATA VISUALIZATION";
 	
-	public DataVisualizationView(DataModel model, boolean isLoadDB) throws IOException {
+	public DataVisualizationView(DataModel model) throws IOException {
         super(model, LAYOUT, ICON, TITLE);
         
         getStage().initModality(Modality.APPLICATION_MODAL);
@@ -26,13 +26,13 @@ public class DataVisualizationView extends View {
         AnchorPane root = (AnchorPane)getStage().getScene().getRoot();
         getStage().setMinWidth(root.getPrefWidth());
         getStage().setMinHeight(root.getPrefHeight());
-        if (!isLoadDB) {
+        if (!model.isLoadDB()) {
         	root.getChildren().get(1).setVisible(false);
         	root.getChildren().get(2).setVisible(false);
         }else
         	root.getChildren().get(4).setVisible(false);
         try {
-        	((DataVisualizationController)getController()).updateTable(isLoadDB);
+        	((DataVisualizationController)getController()).updateTable(model.isLoadDB());
         	getStage().show();
         }catch (SocketException e){
         	new AlertDialog(AlertType.ERROR,

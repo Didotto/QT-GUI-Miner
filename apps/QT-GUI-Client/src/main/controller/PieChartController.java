@@ -13,16 +13,16 @@ public class PieChartController extends Controller {
 	@FXML
 	private PieChart pieChart;
 	
-	public void updateChart(LinkedList<LinkedList<LinkedList<String>>> tableData) {
+	public void updateChart() {
 		ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
-		LinkedList<String> names = getNames(tableData);
+		LinkedList<String> names = getNames(model.getDatabaseData().getData());
 		for(int i=0; i<names.size(); i++) {
-			pieData.add(new PieChart.Data(names.get(i), tableData.get(i).size()));
+			pieData.add(new PieChart.Data(names.get(i), model.getDatabaseData().getData().get(i).size()));
 		}
 		pieChart.setLegendVisible(false);
 		pieChart.setData(pieData);
 		for(int i=0; i<names.size(); i++) {
-			int id = Integer.parseInt(tableData.get(i).get(0).get(0));
+			int id = Integer.parseInt(model.getDatabaseData().getData().get(i).get(0).get(0));
 			Color background = Color.hsb(
 					(id * 67.0d) % 360.0d,
 					(0.3d + id*0.01) %1.0d,

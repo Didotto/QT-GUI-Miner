@@ -12,11 +12,11 @@ public class PieChartView extends View {
 	
 	private static final String LAYOUT = "pieChart.fxml";
 	
-	public PieChartView(DataModel model, LinkedList<LinkedList<LinkedList<String>>> tableData) throws IOException {
+	public PieChartView(DataModel model) throws IOException {
 		super(model, LAYOUT, ICON, TITLE);
 		
 		getController().init(model, getStage());
-		((PieChartController)getController()).updateChart(tableData);
+		((PieChartController)getController()).updateChart();
 		getStage().show();
 	}
 }

@@ -116,12 +116,14 @@ public class MainController extends Controller implements Observer{
 	public void loadData(ActionEvent event) {
 		try {
 			if(loadOptions.getSelectionModel().getSelectedIndex() == 0) {
-				model.setTableName(tableName.getText());
-				model.setRadius(Double.valueOf(radius.getText()));
-				new DataVisualizationView(this.model, true);
+				model.setLoadDB(true);
+				model.getDatabaseData().setDatabaseTable(tableName.getText());
+				model.getDatabaseData().setRadius(Double.valueOf(radius.getText()));
+				new DataVisualizationView(this.model);
 			}else {
-				model.setFileName(fileName.getText());
-				new DataVisualizationView(this.model, false);
+				model.setLoadDB(false);
+				model.getFileData().setFileName(fileName.getText());
+				new DataVisualizationView(this.model);
 			}
 		}catch (IOException e) {
 			new AlertDialog(AlertType.ERROR,
