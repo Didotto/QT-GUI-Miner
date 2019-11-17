@@ -1,7 +1,6 @@
 package model;
 
 import java.net.Socket;
-import java.net.InetSocketAddress;
 import java.net.InetAddress;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

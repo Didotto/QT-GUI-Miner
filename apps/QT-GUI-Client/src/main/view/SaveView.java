@@ -1,14 +1,7 @@
 package view;
 
 import java.io.IOException;
-
-import controller.SaveController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 import model.DataModel;
 
 public class SaveView extends View {

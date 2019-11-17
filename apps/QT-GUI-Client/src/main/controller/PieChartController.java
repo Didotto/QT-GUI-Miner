@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import java.util.LinkedList;
 
 import javafx.collections.ObservableList;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 

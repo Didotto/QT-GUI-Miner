@@ -5,7 +5,6 @@ import javafx.stage.WindowEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
@@ -17,7 +16,6 @@ import javafx.scene.control.TableRow;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 
 import model.DataModel;
-import view.AlertDialog;
 import view.PieChartView;
 import view.SaveView;
 
