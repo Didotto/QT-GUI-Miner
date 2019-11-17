@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.scene.control.Label;
+
+
 public class DataVisualizationController extends Controller {
 	@FXML
 	private TableView<List<String>> tableData;
@@ -37,11 +40,13 @@ public class DataVisualizationController extends Controller {
 	
 	@FXML
 	private Button plotButton;
-	
+	@FXML
+	private Label radiusLabel;
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
+	private Double radiusFile;
 	
-	LinkedList<LinkedList<LinkedList<String>>> completeData;
+	private LinkedList<LinkedList<LinkedList<String>>> completeData;
 	
 	public void init(DataModel model, Stage controlledStage) {
 		super.init(model, controlledStage);
@@ -101,8 +106,7 @@ public class DataVisualizationController extends Controller {
 			tableData.getColumns().add(column);
 			i++;
 		}
-		Double radius = (Double)input.readObject();
-		System.out.println("RAGGIO RICEVUTO: "+radius);
+		radiusFile = (Double)input.readObject();
 		tableData.setItems(data);
 	}
 	
@@ -151,6 +155,7 @@ public class DataVisualizationController extends Controller {
 		if(!isLoadDB) {
 			try {
 				learningFromFile();
+				radiusLabel.setText("Radius : " + radiusFile.toString());
 			}catch(SocketException e) {
 				System.out.println("[!]Error: " + e.getMessage());
 				controlledStage.close();

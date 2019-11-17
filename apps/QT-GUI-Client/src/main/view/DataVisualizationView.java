@@ -33,7 +33,8 @@ public class DataVisualizationView extends View {
         if (!isLoadDB) {
         	root.getChildren().get(1).setVisible(false);
         	root.getChildren().get(2).setVisible(false);
-        }
+        }else
+        	root.getChildren().get(4).setVisible(false);
         try {
         	((DataVisualizationController)getController()).updateTable(isLoadDB);
         	getStage().show();
