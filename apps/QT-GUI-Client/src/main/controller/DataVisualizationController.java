@@ -44,8 +44,10 @@ public class DataVisualizationController extends Controller {
 	private Label radiusLabel;
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
-	private Double radiusFile;
 	
+	private Double radiusFile;
+	private LinkedList<String> scheme;
+	private LinkedList<LinkedList<String>> centroidData;
 	private LinkedList<LinkedList<LinkedList<String>>> completeData;
 	
 	public void init(DataModel model, Stage controlledStage) {
@@ -89,17 +91,14 @@ public class DataVisualizationController extends Controller {
 	private void learningFromFile() throws SocketException, IOException, ClassNotFoundException, ServerException{
 		output.writeObject(3);
 		output.writeObject(model.getFileName()+".dmp");
-		LinkedList<String> risultato_schema;
-		LinkedList<LinkedList<String>> risultato_centroidi;
 		String result = (String)input.readObject();
 		if(result.contentEquals("OK")) {
-			//System.out.println((String)input.readObject());
-			risultato_schema=(LinkedList<String>)input.readObject();
-			risultato_centroidi=(LinkedList<LinkedList<String>>)input.readObject();
+			scheme = (LinkedList<String>)input.readObject();
+			centroidData = (LinkedList<LinkedList<String>>)input.readObject();
 		} else throw new ServerException(result);
 		int i=0;
-		ObservableList<List<String>> data = FXCollections.observableArrayList(risultato_centroidi);
-		for(String attribute: risultato_schema) {
+		ObservableList<List<String>> data = FXCollections.observableArrayList(centroidData);
+		for(String attribute: scheme) {
 			final int  j = i;
 			TableColumn<List<String>, String> column = new TableColumn<>(attribute);
 			column.setCellValueFactory(x -> new ReadOnlyObjectWrapper(x.getValue().get(j)));
@@ -114,13 +113,11 @@ public class DataVisualizationController extends Controller {
 		output.writeObject(1);
 		output.writeObject(model.getRadius());
 		LinkedList<String> risultato_schema;
-		int numero_cluster;
 		String result = (String)input.readObject();
 		if(result.equals("OK")){
 			//recv risultato schema
-			risultato_schema=(LinkedList<String>)input.readObject();
-			numero_cluster=(int)input.readObject();
-			completeData=(LinkedList<LinkedList<LinkedList<String>>>)input.readObject();
+			risultato_schema = (LinkedList<String>)input.readObject();
+			completeData = (LinkedList<LinkedList<LinkedList<String>>>)input.readObject();
 			
 		} else throw new ServerException(result);
 		
@@ -151,34 +148,13 @@ public class DataVisualizationController extends Controller {
 		
 	}
 	
-	public void updateTable (boolean isLoadDB) throws ServerException{
+	public void updateTable (boolean isLoadDB) throws ServerException, IOException, SocketException, ClassNotFoundException{
 		if(!isLoadDB) {
-			try {
-				learningFromFile();
-				radiusLabel.setText("Radius : " + radiusFile.toString());
-			}catch(SocketException e) {
-				System.out.println("[!]Error: " + e.getMessage());
-				controlledStage.close();
-			}catch(IOException e){
-				System.out.println("[!]Error: " + e.getMessage());
-				controlledStage.close();
-			}catch(ClassNotFoundException e) {
-				System.out.println("[!]Error: " + e.getMessage());
-				controlledStage.close();
-			}
+			learningFromFile();
+			radiusLabel.setText("Radius : " + radiusFile);
 		}else {
-			try {
-				storeTableFromDb();
-				learningFromDbTable();
-			}catch(SocketException e) {
-				System.out.println("[!]Error: " + e.getMessage());
-			}catch(IOException e){
-				System.out.println("[!]Error: " + e.getMessage());
-			}catch(ClassNotFoundException e) {
-				System.out.println("[!]Error: " + e.getMessage());
-			}catch(ServerException e) {
-				System.out.println("[!]Error: " + e.getMessage());
-			}
+			storeTableFromDb();
+			learningFromDbTable();
 		}
 	}
 	

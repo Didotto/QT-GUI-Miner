@@ -34,7 +34,7 @@ public class ServeOneClient extends Thread {
 		boolean repeat = true;
 		try {
 			do {
-				System.out.println("New request");
+				System.out.println("[#] NEW REQUEST: " + socket);
 				int choise = (int)in.readObject();
 				switch(choise) {
 					case 0:
@@ -47,23 +47,21 @@ public class ServeOneClient extends Thread {
 								//1 - Learning from DB
 								double radius = (double) in.readObject();
 								kmeans = new QTMiner(radius);
-								int numberOfClusters = kmeans.compute(data);
+								kmeans.compute(data);
 								out.writeObject("OK");
 								//send scheme list
 								LinkedList<String> scheme = kmeans.getSchemeList();
 								scheme.addLast("Distance");
 								out.writeObject(scheme);
 								//send data
-								out.writeObject(numberOfClusters);
 								out.writeObject(kmeans.getDataList(data));
 
-								boolean dvFinestraAperta = true; 
+								boolean dvWindowOpen = true; 
 								do {
-									int risposta = (int)in.readObject();
-									if(risposta == 2) {
+									int answere = (int)in.readObject();
+									if(answere == 2) {
 										//2 - Store in file
 										System.out.println("Saving file");
-										//boolean saveRepeat = true; 
 										String fileName = (String)in.readObject();
 										System.out.println("FileName riceved: " + fileName);
 										if(! new File(fileName + ".dmp").exists()) {
@@ -71,7 +69,6 @@ public class ServeOneClient extends Thread {
 											kmeans.save(fileName + ".dmp");
 											System.out.println("File saved " + fileName);
 											out.writeObject("OK");
-											//saveRepeat = false;
 										} else {
 											System.out.println("Unable to save file - File already exist");
 											System.out.println("I'm asking for overwrite or not");
@@ -81,17 +78,16 @@ public class ServeOneClient extends Thread {
 												kmeans.save(fileName + ".dmp");
 												System.out.println("File overwritted: " + fileName);
 												out.writeObject("OK");
-												//saveRepeat = false;
 											} else {
 												System.out.println("File was not overwritten");
 											}
 										}
 									
 									}else {
-										System.out.println("The user closed his data visualization: " + risposta);
-										dvFinestraAperta=false;
+										System.out.println("[#] The user closed his data visualization " + socket);
+										dvWindowOpen=false;
 									}
-								}while(dvFinestraAperta);
+								}while(dvWindowOpen);
 							}
 						} catch(IOException e) {
 							System.out.println("[!] Error occurred while communicating with the client " + e.getMessage());
@@ -104,7 +100,6 @@ public class ServeOneClient extends Thread {
 							System.out.println("[!] Error code: " + e.getErrorCode());
 							System.out.println("[!] SQLState: " + e.getSQLState());
 							System.out.println("I'm sending the problem");
-							//System.out.println("Error Code: " + e.getErrorCode());
 							if(e.getErrorCode() == 1146 || e.getErrorCode() == 0) { //Error code if the table does not exist
 								out.writeObject("Table does not exist");
 							} else {
@@ -145,11 +140,11 @@ public class ServeOneClient extends Thread {
 						break;
 					
 					case -1:
-						System.out.println("[#] NEW REQUEST: " + socket.toString());
+						System.out.println("[#] The user closed his data visualization " + socket);
 						break;
 						
 					case -2:	
-						System.out.println("[#] ENDED: " + socket.toString());
+						System.out.println("[#] ENDED: " + socket);
 						repeat = false;
 						break;
 						

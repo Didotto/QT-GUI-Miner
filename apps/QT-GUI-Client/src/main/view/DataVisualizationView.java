@@ -1,16 +1,12 @@
 package view;
 
 import java.io.IOException;
+import java.net.SocketException;
 
 import controller.DataVisualizationController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 import model.DataModel;
 import controller.ServerException;
 
@@ -38,11 +34,23 @@ public class DataVisualizationView extends View {
         try {
         	((DataVisualizationController)getController()).updateTable(isLoadDB);
         	getStage().show();
+        }catch (SocketException e){
+        	new AlertDialog(AlertType.ERROR,
+					"ERROR",
+					"COMMUNICATION ERROR WITH SERVER",
+					e.getMessage()
+					);
+        }catch (IOException | ClassNotFoundException e) {
+        	new AlertDialog(AlertType.ERROR,
+					"ERROR",
+					"FATAL ERROR",
+					e.getMessage()
+					);
         }catch (ServerException e) {
         	new AlertDialog(AlertType.ERROR,
 					"ERROR",
-					"ERROR",
-					"File doesn't Exist!"
+					"USER INPUT ERROR",
+					e.getMessage()
 					);
         }
 		
