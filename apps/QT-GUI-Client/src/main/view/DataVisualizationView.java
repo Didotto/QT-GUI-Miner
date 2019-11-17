@@ -32,6 +32,7 @@ public class DataVisualizationView extends View {
         getStage().setMinHeight(root.getPrefHeight());
         if (!isLoadDB) {
         	root.getChildren().get(1).setVisible(false);
+        	root.getChildren().get(2).setVisible(false);
         }
         try {
         	((DataVisualizationController)getController()).updateTable(isLoadDB);
