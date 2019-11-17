@@ -55,17 +55,24 @@ public class SaveController extends Controller{
 			storeClustersInFile();
 			
 		}catch(SocketException e) {
-			System.out.println("[!]Error: " + e.getMessage());
+			new AlertDialog(AlertType.ERROR,
+					"ERROR",
+					"CONNECTION ERROR",
+					"Try to connect again to the server!"
+					);
 		}catch(ServerException e) {
-			System.out.println("[!]Error: " + e.getMessage());
-		}catch (IOException e) {
-			System.out.println("[!]Error: " + e.getMessage());
-		}catch (ClassNotFoundException e) {
-			System.out.println("[!]Error: " + e.getMessage());
-		}catch (Exception e) {
-			System.out.println("[!]Error: " + e.getMessage());
+			new AlertDialog(AlertType.ERROR,
+					"ERROR",
+					"SERVER ERROR",
+					e.getMessage()
+					);
+		}catch (IOException | ClassNotFoundException e) {
+			new AlertDialog(AlertType.ERROR,
+					"ERROR",
+					"COMMUNICATION ERROR",
+					"An error occurred while communicating with the server!"
+					);
 		}
-		System.out.println("Sono andato oltre il try catch");
 	}
 	
 	private void storeClustersInFile() throws SocketException,ServerException,IOException,ClassNotFoundException{
@@ -100,16 +107,12 @@ public class SaveController extends Controller{
 					if(!results.equals("OK"))
 						 throw new ServerException(results);
 	            }else {
-	            	System.out.print("PRIMA DI N");
 	            	output.writeObject("N");
-	            	System.out.print("DOPO DI N");
 	            }
 			}
 			
 		//CHIUDO LA FINESTRA
 		controlledStage.close();
-		//CHIUDO LA FINESTRA
-		System.out.print("DOPO LA CHIUSURA");
 	}
 	
 }

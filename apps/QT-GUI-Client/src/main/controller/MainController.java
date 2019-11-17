@@ -100,7 +100,11 @@ public class MainController extends Controller implements Observer{
 		try {
 			new GearView(this.model);
 		}catch (IOException e){
-			System.out.println("Error: " + e.getMessage());
+			new AlertDialog(AlertType.WARNING,
+					"ERROR",
+					"ERROR OPENING A NEW WINDOW",
+					"Unable to open a new option window. Try again...!"
+					);
 		}
 	}
 	

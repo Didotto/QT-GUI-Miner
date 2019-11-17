@@ -5,6 +5,7 @@ import javafx.stage.WindowEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
@@ -16,6 +17,7 @@ import javafx.scene.control.TableRow;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 
 import model.DataModel;
+import view.AlertDialog;
 import view.PieChartView;
 import view.SaveView;
 
@@ -77,7 +79,11 @@ public class DataVisualizationController extends Controller {
 		try {
 			output.writeObject(-1);
 		}catch (IOException e) {
-			System.out.println("[!]Error: " + e.getMessage());
+			new AlertDialog(AlertType.WARNING,
+					"WARNING",
+					"COMMINICATION ERROR",
+					e.getMessage()
+					);
 		}
 	}
 	
@@ -153,9 +159,12 @@ public class DataVisualizationController extends Controller {
 	public void saveClicked (MouseEvent e) {
 		try {
 			new SaveView(this.model);
-			//controlledStage.close();
 		}catch (IOException ex){
-			System.out.println("Error: " + ex.getMessage());
+			new AlertDialog(AlertType.WARNING,
+					"ERROR",
+					"ERROR OPENING A NEW WINDOW",
+					"Unable to open a new saving window. Try again...!"
+					);
 		}
 	}
 	
@@ -164,7 +173,11 @@ public class DataVisualizationController extends Controller {
 		 try {
 			 new PieChartView(this.model);
 		 } catch (IOException ex) {
-			 System.out.println("Error: " + ex.getMessage());
+			 new AlertDialog(AlertType.WARNING,
+						"ERROR",
+						"ERROR OPENING A NEW WINDOW",
+						"Unable to open a new chart window. Try again...!"
+						);
 		 }
 	 }
 	 

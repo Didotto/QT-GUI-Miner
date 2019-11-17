@@ -79,7 +79,6 @@ public class GearController extends Controller{
 						try {
 							model.connect(ipAddr, port_conn);
 							controlledStage.close();
-							System.out.println("Connessione AVVENUTA");
 						} catch (IOException e) {
 							new AlertDialog(AlertType.ERROR,
 									"CONNECTION FAILED",

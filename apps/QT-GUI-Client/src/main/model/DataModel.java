@@ -38,7 +38,6 @@ public class DataModel extends Observable{
 	
 	public void disconnect () throws IOException{
 		mySocket.close();
-		System.out.print(mySocket.isConnected());
 		setChanged();
 		notifyObservers();
 	}
