@@ -39,7 +39,7 @@ public abstract class Attribute implements Serializable {
 	public int getIndex() {
 		return this.index;
 	}
-	@Override
+	
 	/**
 	 * Returns an attribute as string 
 	 * @return an attribute as string 

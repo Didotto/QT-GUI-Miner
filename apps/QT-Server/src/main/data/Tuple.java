@@ -75,7 +75,6 @@ public class Tuple implements Serializable{
 		}
 		return sumD / clusteredData.size();
 	}
-	@Override
 	
 	/**
 	 * Returns the tuple as string

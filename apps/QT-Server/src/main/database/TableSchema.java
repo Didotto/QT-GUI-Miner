@@ -50,7 +50,6 @@ public class TableSchema {
 			return type.equals("number");
 		}
 		
-		@Override
 		/**
 		 * Returns the name and type of column as string
 		 * @return the name and type of column as string

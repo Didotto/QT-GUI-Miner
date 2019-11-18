@@ -41,7 +41,6 @@ public class ServeOneClient extends Thread {
 		this.start();
 	}
 	
-	@Override
 	public void run() {
 		boolean repeat = true;
 		try {

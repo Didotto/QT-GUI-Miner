@@ -40,7 +40,6 @@ public abstract class Item implements Serializable {
 		return this.value;
 	}
 	
-	@Override
 	
 	/**
 	 * Returns the item as string

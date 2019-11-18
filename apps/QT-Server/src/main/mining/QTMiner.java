@@ -145,7 +145,6 @@ public class QTMiner {
 		return candidate;
 	}
 	
-	@Override
 	/**
 	 * Returns the radius and the cluster set as strings
 	 *@return the radius and the cluster set as strings

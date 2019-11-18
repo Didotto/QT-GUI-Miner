@@ -99,7 +99,7 @@ public class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializ
 	 * Return the centroid of cluster as string
 	 * @return the centroid of cluster as string
 	 */
-	@Override
+
 	public String toString(){
 		String str = "Centroid=(";
 		for(int i = 0; i<centroid.getLength(); i++)
