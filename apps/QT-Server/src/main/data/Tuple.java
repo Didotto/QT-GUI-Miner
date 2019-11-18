@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Tuple implements Serializable{
 	private Item tuple[];
 	
-	Tuple(int size){
+	public Tuple(int size){
 		this.tuple = new Item[size];
 	}
 	

@@ -7,7 +7,7 @@ import java.util.Iterator;
 public class DiscreteAttribute extends Attribute implements Iterable<String>{
 	private Set<String> values;
 	
-	DiscreteAttribute(String name, int index, TreeSet<String> values){
+	public DiscreteAttribute(String name, int index, TreeSet<String> values){
 		super(name, index);
 		this.values = values;
 	}

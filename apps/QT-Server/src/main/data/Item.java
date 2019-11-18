@@ -6,7 +6,7 @@ public abstract class Item implements Serializable {
 	private Attribute attribute;
 	private Object value;
 	
-	Item(Attribute attribute, Object value){
+	public Item(Attribute attribute, Object value){
 		this.attribute = attribute;
 		this.value =  value;
 	}
