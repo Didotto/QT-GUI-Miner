@@ -1,6 +1,7 @@
 package data;
 
 import java.util.List;
+
 import java.util.LinkedList;
 import java.util.TreeSet;
 import database.DbAccess;
@@ -12,11 +13,25 @@ import database.NoValueException;
 import database.EmptySetException;
 import database.QUERY_TYPE;
 import java.sql.SQLException;
+
+/**
+ * This class models the entire set of transaction retrived from db 
+ *
+ */
+
 public class Data {
 	
 	private List<Example> data;
 	private List<Attribute> attributeSet;
 	
+	/**
+	 * Builds an object instance of Data class which summarizes the entire data set (recovered from the db) 
+	 *@param table name of table stored in db which contains data 
+	 *@throws NoValueException thrown when there are no value retrived from column in db when it's used aggregate operator
+	 *@throws DatabaseConnectionException thrown when the connection to the db fails.
+	 *@throws SQLException if there are some problems with the connection to db 
+	 *@throws EmptyDatasetException thrown there are no transaction retrived from db
+	 */
 	
 	public Data(String table) throws NoValueException, DatabaseConnectionException, SQLException, EmptyDatasetException {
 		
@@ -28,7 +43,6 @@ public class Data {
 		TableSchema tSchema = new TableSchema(dbaccess, table); 
 		TableData tData = new TableData(dbaccess);
 		
-		//DA DECIDERE
 		try {
 			data = tData.getDistinctTransazioni(table);
 		} catch(EmptySetException e) {
@@ -100,28 +114,58 @@ public class Data {
 		
 		
 	}
-	
+	/**
+	  *Returns the number of rows in the data set (transactons retrived from a table db)
+	  *@return the data size
+	  */
 	public int getNumberOfExamples(){
 		return this.data.size();
 	}
+	
+	/**
+	  *Returns the number if attributes in the data set
+	  *@return the attribute set size
+	  */
 	
 	public int getNumberOfAttributes(){
 		return this.attributeSet.size();
 	}
 	
+	/**
+	  *Returns the schema of the data set
+	  *@return the schema of the data set
+	  */
+	
 	public List<Attribute> getAttributeSchema() {
 		return this.attributeSet;
 	}
+	
+	/**
+	  *Returns the attribute value in the position expressed by [exampleIndex,exampleIndex]
+	  *@param exampleIndex row of dataset
+	  *@param attributeIndex column of dataset
+	  *@return the attribute value in the position expressed by [exampleIndex,exampleIndex]
+	  */
 	
 	public Object getAttributeValue(int exampleIndex, int attributeIndex){
 		return this.data.get(exampleIndex).get(attributeIndex);
 	}
 	
-	Attribute getAttribute(int index){
+	/**
+	  *Returns the attribute expressed by an index
+	  *@param index index realted to an attribute
+	  *@return the attribute expressed by an index
+	  */
+	
+	public Attribute getAttribute(int index){
 		return this.attributeSet.get(index);
 	}
 	
-	
+	/**
+	  *Returns the data set as string
+	  *@return the data set as string
+	  */
+	@Override
 	public String toString(){
 		String str = "";
 		for(int i=0; i<this.getNumberOfAttributes(); i++) {
@@ -140,7 +184,12 @@ public class Data {
 		return str;
 		
 	}
-
+	/**
+	  *Creates and returns an instance object of class Tuple that models the i-th row given as a sequence of Attribute-value pairs.
+	  *@param index index if row to be modeled
+	  *@return the row modeled
+	  */
+	
 	public Tuple getItemSet(int index) {
 		Tuple tuple = new Tuple(this.getNumberOfAttributes());
 		for(int i = 0; i<this.getNumberOfAttributes(); i++)

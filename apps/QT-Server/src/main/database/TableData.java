@@ -16,15 +16,30 @@ import java.util.TreeSet;
 
 import database.TableSchema.Column;
 
-
+/**
+ * This class model the entire transaction stored in a db
+ *
+ */
 public class TableData {
 
 	DbAccess db;
-		
+	
+	/**
+	 * Builds an object of class "TableData"
+	 *@param db object that rappresent the information about connection to db and the connection itself
+	 */
 	public TableData(DbAccess db) {
 		this.db = db;
 	}
 
+	/**
+	 * Construct a query for db and save all transactions contained in db
+	 *@param table the name of table
+	 *@return a linked list of example
+	 *@throws SQLException if there are some problems with the connetion to db
+	 *@throws EmptySetException if there are no transactions retrived
+	 */
+	
 	public List<Example> getDistinctTransazioni(String table) throws SQLException, EmptySetException{
 		LinkedList<Example> transSet = new LinkedList<Example>();
 		Statement statement;
@@ -67,7 +82,14 @@ public class TableData {
 		return transSet;
 
 	}
-
+	
+	/**
+	 * Construct a query for db and save all transactions contained in db
+	 *@param table the name of table
+	 *@param column name of the column in the table 
+	 *@return  a set of ordered distinct values in the column of table
+	 *@throws SQLException if there are some problems with the connetion to db
+	 */
 	
 	public  Set<Object>getDistinctColumnValues(String table,Column column) throws SQLException{
 		Set<Object> valueSet = new TreeSet<Object>();
@@ -100,7 +122,17 @@ public class TableData {
 
 	}
 
-	public  Object getAggregateColumnValue(String table,Column column,QUERY_TYPE aggregate) throws SQLException,NoValueException {
+	/**
+	 * Construct a query for db and save all transactions contained in db
+	 *@param table the name of table
+	 *@param column name of the column in the table 
+	 *@param aggregate the aggregate operator for query
+	 *@return min or max that dipends from query type
+	 *@throws SQLException if there are some problems with the connetion to db
+	 *@throws NoValueException if there is no min or max in the column
+	 */
+	
+	public Object getAggregateColumnValue(String table,Column column,QUERY_TYPE aggregate) throws SQLException,NoValueException {
 		Statement statement;
 		//TableSchema tSchema=new TableSchema(db,table);
 		Object value = null;

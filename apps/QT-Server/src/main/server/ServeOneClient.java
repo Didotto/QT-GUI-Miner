@@ -17,11 +17,22 @@ import java.util.LinkedList;
 
 import data.EmptyDatasetException;
 
+/**
+ * This class describes how works the server
+ *
+ */
 public class ServeOneClient extends Thread {
 	private Socket socket;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private QTMiner kmeans;
+	
+	/**
+	 * Initializes the stream and start new thread which manages communication with a client
+	 *
+	 *@param socket work socket to manage communication with a client
+	 *@throws IOException if an I/O error occurs while reading stream header
+	 */
 	
 	public ServeOneClient(Socket socket) throws IOException{
 		this.socket = socket;
@@ -30,6 +41,7 @@ public class ServeOneClient extends Thread {
 		this.start();
 	}
 	
+	@Override
 	public void run() {
 		boolean repeat = true;
 		try {
