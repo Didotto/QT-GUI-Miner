@@ -9,6 +9,11 @@ import java.net.UnknownHostException;
 import java.io.IOException;
 import java.util.Observable;
 
+/**
+ * This class models all the data available to the controls and views 
+ * (when client asks the server to connect, or to exchange data)
+ */
+
 public class DataModel extends Observable{
 	private Socket mySocket;
 	
@@ -22,11 +27,21 @@ public class DataModel extends Observable{
 	
 	private boolean isLoadDB;
 	
+	/**
+	 * Builds an object instance of class DataModel and initialize attributes
+	 * 
+	 */
+	
 	public DataModel() {
 		mySocket = new Socket();
 		fileData = new FileData();
 		databaseData = new DatabaseData();
 	}
+	
+	/**
+	 * Builds an object instance of class DataModel and initialize attributes
+	 * 
+	 */
 	
 	public void connect(String ipAddress, int port) throws IOException, UnknownHostException {
 		mySocket = new Socket (InetAddress.getByName(ipAddress),port);
