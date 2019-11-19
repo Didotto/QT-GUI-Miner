@@ -9,7 +9,6 @@ import java.io.File;
 import mining.QTMiner;
 import mining.ClusteringRadiusException;
 import data.Data;
-//import database.EmptySetException;
 import database.DatabaseConnectionException;
 import database.NoValueException;
 import java.sql.SQLException;
@@ -18,7 +17,7 @@ import java.util.LinkedList;
 import data.EmptyDatasetException;
 
 /**
- * This class describes how works the server
+ * This class describes how the server works
  *
  */
 public class ServeOneClient extends Thread {
