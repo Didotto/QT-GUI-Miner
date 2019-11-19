@@ -81,8 +81,8 @@ public class View {
 	}
 	
 	/**
-	 * Return the stage associated with 
-	 * @return the stage associated with 
+	 * Return the stage associated with a view
+	 * @return the stage associated with a view
 	 */	
 	
 	public Stage getStage() {
