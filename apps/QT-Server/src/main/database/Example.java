@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * This class model a tuple inside a db table
+ * This class models a tuple inside a db table
  */
 public class Example implements Comparable<Example>{
 	private List<Object> example=new ArrayList<Object>();

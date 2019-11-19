@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
-* This class defines how work QT 
+* This class defines how QT works
 *
 */
 public class QTMiner {
