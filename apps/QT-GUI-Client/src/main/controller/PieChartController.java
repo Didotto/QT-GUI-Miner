@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 
-public class PieChartController extends Controller {
+public class PieChartController extends ColoredController {
 	@FXML
 	private PieChart pieChart;
 	
@@ -23,11 +23,8 @@ public class PieChartController extends Controller {
 		pieChart.setData(pieData);
 		for(int i=0; i<names.size(); i++) {
 			int id = Integer.parseInt(model.getDatabaseData().getData().get(i).get(0).get(0));
-			Color background = Color.hsb(
-					(id * 67.0d) % 360.0d,
-					(0.3d + id*0.01) %1.0d,
-					0.8d);
-			pieData.get(i).getNode().setStyle("-fx-pie-color: #" + background.toString().substring(2, 8));
+			pieData.get(i).getNode().setStyle("-fx-pie-color: #" +
+			generatePastelColor(id).toString().substring(2, 8));
 		}
 		
 	}

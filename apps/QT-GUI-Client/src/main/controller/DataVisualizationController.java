@@ -8,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableColumn;
-import javafx.scene.paint.Color;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.collections.FXCollections;
@@ -31,7 +30,7 @@ import java.util.List;
 import javafx.scene.control.Label;
 
 
-public class DataVisualizationController extends Controller {
+public class DataVisualizationController extends ColoredController {
 	@FXML
 	private TableView<List<String>> tableData;
 	
@@ -56,12 +55,8 @@ public class DataVisualizationController extends Controller {
 				if(item == null) {
 					setGraphic(null);
 				}else {
-					int id = Integer.parseInt(item.get(0));
-					Color background = Color.hsb(
-							(id * 67.0d) % 360.0d,
-							(0.3d + id*0.01) %1.0d,
-							0.8d);
-					setStyle("-fx-background-color: #" + background.toString().substring(2, 8));
+					setStyle("-fx-background-color: #" +
+							generatePastelColor(Integer.parseInt(item.get(0))).toString().substring(2, 8));
 				}
 				
 			}
