@@ -10,12 +10,26 @@ import javafx.stage.Modality;
 import model.DataModel;
 import controller.ServerException;
 
+/**
+ * This class models the view of the stage
+ * that will appear to the client when
+ * the results are shown
+ */
+
 public class DataVisualizationView extends View {
 	private static final String LAYOUT = "dataVisualization.fxml";
 	
 	private static final String ICON = "mining.png";
 	
 	private static final String TITLE = "DATA VISUALIZATION";
+	
+	/**
+	 * Display the data visualization stage to the client and hide
+	 * or show some elements based on the user's decision
+	 *
+	 * @param model contains the information needed and stored for the client
+	 * @throws IOException if an I/O error occurs when using the stage
+	 */
 	
 	public DataVisualizationView(DataModel model) throws IOException {
         super(model, LAYOUT, ICON, TITLE);

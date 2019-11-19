@@ -9,12 +9,26 @@ import java.io.IOException;
 import javafx.application.Platform;
 import javafx.scene.control.SplitPane;
 
+/**
+ * This class models the view of the initial stage
+ * used by the client to perform the next operations
+ */
+
 public class MainView extends View{
 	private static final String TITLE = "QT-Miner JavaFX";
 	
 	private static final String ICON = "mining.png";
 	
 	private static final String LAYOUT = "main.fxml";
+	
+	/**
+	 * Display the initial stage to the client and disable
+	 * or show some elements based on the user's decision
+	 *
+	 * @param model contains the information needed and stored for the client
+	 * @throws IOException if an I/O error occurs when using the stage
+	 */
+	
 	
 	public MainView(DataModel model) throws IOException {
 		super(model, LAYOUT, ICON, TITLE);
