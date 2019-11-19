@@ -126,7 +126,7 @@ public class DataModel extends Observable{
 
 	/**
 	 * Set the information in case a clustering is loaded from db
-	 *@param fileData the reference to a DatabaseData class instance 
+	 *@param databaseData the reference to a DatabaseData class instance 
 	 */
 	
 	public void setDatabaseData(DatabaseData databaseData) {
@@ -135,7 +135,7 @@ public class DataModel extends Observable{
 
 	/**
 	 * Returns true if the client choose to load data from db, false otherwise
-	 *@param true if the client choose to load data from db,false otherwise
+	 *@return true if the client choose to load data from db,false otherwise
 	 */
 	
 	public boolean isLoadDB() {
@@ -144,7 +144,7 @@ public class DataModel extends Observable{
 
 	/**
 	 * Set true if the client choose to load data from db,false otherwise
-	 *@param true if the client choose to load data from db,false otherwise
+	 *@param isLoadDB true if the client choose to load data from db,false otherwise
 	 */
 	
 	public void setLoadDB(boolean isLoadDB) {

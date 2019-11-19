@@ -23,7 +23,6 @@ public class DatabaseData extends Data{
 	/**
 	 * Set the name of database table (so as to make the information visible to view and controller)
 	 * @param databaseTable the name of table to set
-	 * @return the name of database table 
 	 */
 	
 	public void setDatabaseTable(String databaseTable) {
@@ -42,7 +41,7 @@ public class DatabaseData extends Data{
 	/**
 	 * Set the data which represents the entire table returned by the server when the user requests to load the data from db
 	 * with the data given in input
-	 * @param the data which represents the entire table returned by the server
+	 * @param data which represents the entire table returned by the server
 	 */
 	
 	public void setData(LinkedList<LinkedList<LinkedList<String>>> data) {

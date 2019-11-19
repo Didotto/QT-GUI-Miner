@@ -24,7 +24,6 @@ public class FileData extends Data {
 	/**
 	 * Set the file name with the input name given
 	 * @param fileName the name of file from which you want to recover the previous clusterizations 
-	 * @return the file name
 	 */
 	
 	public void setFileName(String fileName) {
@@ -43,7 +42,7 @@ public class FileData extends Data {
 	/**
 	 * Set the data which represents the entire table returned by the server when the user requests to load the data from file
 	 * with the data given in input
-	 * @param the data which represents the entire table returned by the server
+	 * @param data the data which represents the entire table returned by the server
 	 */
 	
 	public void setData(LinkedList<LinkedList<String>> data) {
