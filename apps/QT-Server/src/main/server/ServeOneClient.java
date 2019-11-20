@@ -61,27 +61,7 @@ public class ServeOneClient extends Thread {
 									int answere = (int)in.readObject();
 									if(answere == 2) {
 										//2 - Store in file
-										System.out.println("Saving file");
-										String fileName = (String)in.readObject();
-										System.out.println("FileName riceved: " + fileName);
-										if(! new File(fileName + ".dmp").exists()) {
-											out.writeObject("OK");
-											kmeans.save(fileName + ".dmp");
-											System.out.println("File saved " + fileName);
-											out.writeObject("OK");
-										} else {
-											System.out.println("Unable to save file - File already exist");
-											System.out.println("I'm asking for overwrite or not");
-											out.writeObject("File already exist");
-											String overwrite = (String)in.readObject();
-											if(overwrite.toUpperCase().equals("Y")) {
-												kmeans.save(fileName + ".dmp");
-												System.out.println("File overwritted: " + fileName);
-												out.writeObject("OK");
-											} else {
-												System.out.println("File was not overwritten");
-											}
-										}
+										storeClustersInFile();
 									
 									}else {
 										System.out.println("[#] The user closed his data visualization " + socket);
@@ -184,5 +164,29 @@ public class ServeOneClient extends Thread {
 		out.writeObject(kmeans.getCentroidsList());
 		//send radius
 		out.writeObject(kmeans.getRadius());
+	}
+	
+	private void storeClustersInFile() throws ClassNotFoundException, IOException{
+		System.out.println("Saving file");
+		String fileName = (String)in.readObject();
+		System.out.println("FileName riceved: " + fileName);
+		if(! new File(fileName + ".dmp").exists()) {
+			out.writeObject("OK");
+			kmeans.save(fileName + ".dmp");
+			System.out.println("File saved " + fileName);
+			out.writeObject("OK");
+		} else {
+			System.out.println("Unable to save file - File already exist");
+			System.out.println("I'm asking for overwrite or not");
+			out.writeObject("File already exist");
+			String overwrite = (String)in.readObject();
+			if(overwrite.toUpperCase().equals("Y")) {
+				kmeans.save(fileName + ".dmp");
+				System.out.println("File overwritted: " + fileName);
+				out.writeObject("OK");
+			} else {
+				System.out.println("File was not overwritten");
+			}
+		}
 	}
 }
