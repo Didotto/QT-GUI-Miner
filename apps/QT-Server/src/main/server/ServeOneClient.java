@@ -55,17 +55,7 @@ public class ServeOneClient extends Thread {
 							out.writeObject("OK");
 							if((int)in.readObject() == 1) {
 								//1 - Learning from DB
-								double radius = (double) in.readObject();
-								kmeans = new QTMiner(radius);
-								kmeans.compute(data);
-								out.writeObject("OK");
-								//send scheme list
-								LinkedList<String> scheme = kmeans.getSchemeList();
-								scheme.addLast("Distance");
-								out.writeObject(scheme);
-								//send data
-								out.writeObject(kmeans.getDataList(data));
-
+								learningFromDb (data);
 								boolean dvWindowOpen = true; 
 								do {
 									int answere = (int)in.readObject();
@@ -133,14 +123,7 @@ public class ServeOneClient extends Thread {
 						System.out.println("File name requested : "+ fileName);
 						System.out.println("I'm sending the results");
 						try {
-							kmeans = new QTMiner(fileName);
-							out.writeObject("OK");
-							//send scheme
-							out.writeObject(kmeans.getSchemeList());
-							//send list of centroids
-							out.writeObject(kmeans.getCentroidsList());
-							//send radius
-							out.writeObject(kmeans.getRadius());
+							learningFromFile(fileName);
 							System.out.println("Results sent");
 						} catch(FileNotFoundException e) {
 							System.out.println("[!] File " + fileName + " not found: " + e.getMessage());
@@ -177,5 +160,29 @@ public class ServeOneClient extends Thread {
 			
 		}
 		
+	}
+	
+	private void learningFromDb (Data data) throws IOException, ClassNotFoundException, ClusteringRadiusException{
+		double radius = (double) in.readObject();
+		kmeans = new QTMiner(radius);
+		kmeans.compute(data);
+		out.writeObject("OK");
+		//send scheme list
+		LinkedList<String> scheme = kmeans.getSchemeList();
+		scheme.addLast("Distance");
+		out.writeObject(scheme);
+		//send data
+		out.writeObject(kmeans.getDataList(data));
+	}
+	
+	private void learningFromFile (String fileName) throws FileNotFoundException, ClassNotFoundException, IOException{
+		kmeans = new QTMiner(fileName);
+		out.writeObject("OK");
+		//send scheme
+		out.writeObject(kmeans.getSchemeList());
+		//send list of centroids
+		out.writeObject(kmeans.getCentroidsList());
+		//send radius
+		out.writeObject(kmeans.getRadius());
 	}
 }
