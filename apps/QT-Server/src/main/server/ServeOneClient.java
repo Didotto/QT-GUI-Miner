@@ -40,6 +40,12 @@ public class ServeOneClient extends Thread {
 		this.start();
 	}
 	
+	/**
+	 * Read the user choice as input and proceed to execute the operation chosen by the user.
+	 * It can also manage new requests or close the connection.
+	 * If a user sends an invalid input, an exception is thrown.
+	 */
+	
 	public void run() {
 		boolean repeat = true;
 		try {
@@ -142,6 +148,15 @@ public class ServeOneClient extends Thread {
 		
 	}
 	
+	/**
+	 * Read the radius from stream, performs clustering and send to the client the scheme of the "table" and the 
+	 * data clustered
+	 * @param data the entire data set
+	 * @throws IOException Signals that an I/O exception of some sort has occurred
+	 * @throws ClassNotFoundException thrown when it tries to load in a class through its string name and something goes wrongs
+	 * @throws ClusteringRadiusException thrown when is generates only one cluster
+	 */
+	
 	private void learningFromDb (Data data) throws IOException, ClassNotFoundException, ClusteringRadiusException{
 		double radius = (double) in.readObject();
 		kmeans = new QTMiner(radius);
@@ -155,6 +170,15 @@ public class ServeOneClient extends Thread {
 		out.writeObject(kmeans.getDataList(data));
 	}
 	
+	/**
+	 * Read the clustering from the file with name given in input and send the scheme , the centroid list and the radius
+	 * to client
+	 * @param fileName the name of the file from which to read a saved clustering
+	 * @throws IOException Signals that an I/O exception of some sort has occurred
+	 * @throws ClassNotFoundException thrown when it tries to load in a class through its string name and something goes wrongs
+	 * @throws FileNotFoundException if the name doesn't does not match with any file saved
+	 */
+	
 	private void learningFromFile (String fileName) throws FileNotFoundException, ClassNotFoundException, IOException{
 		kmeans = new QTMiner(fileName);
 		out.writeObject("OK");
@@ -165,6 +189,13 @@ public class ServeOneClient extends Thread {
 		//send radius
 		out.writeObject(kmeans.getRadius());
 	}
+	
+	/**
+	 * Read the name of the file in which to save a clustering, 
+	 * if the file already exists ask to client if overwrite he should overwrite
+	 * @throws IOException Signals that an I/O exception of some sort has occurred
+	 * @throws ClassNotFoundException thrown when it tries to load in a class through its string name and something goes wrongs
+	 */
 	
 	private void storeClustersInFile() throws ClassNotFoundException, IOException{
 		System.out.println("Saving file");
