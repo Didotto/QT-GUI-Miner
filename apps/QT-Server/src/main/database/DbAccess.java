@@ -47,7 +47,7 @@ public class DbAccess {
 		try {
 			
 			String connectionString = DBMS + "://" + SERVER + ":" + PORT + "/" + DATABASE
-					+ "?user=" + USER_ID + "&password=" + PASSWORD;
+					+ "?user=" + USER_ID + "&password=" + PASSWORD + "&serverTimezone=UTC";
 			
 			//String connectionString = DBMS + "://" + SERVER + ":" + PORT + "/" + DATABASE;
 			System.out.println("Connection's String: " + connectionString);
