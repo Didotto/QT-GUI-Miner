@@ -17,12 +17,6 @@ import controller.ServerException;
  */
 
 public class DataVisualizationView extends View {
-	private static final String LAYOUT = "dataVisualization.fxml";
-	
-	private static final String ICON = "mining.png";
-	
-	private static final String TITLE = "DATA VISUALIZATION";
-	
 	/**
 	 * Display the data visualization stage to the client and hide
 	 * or show some elements based on the user's decision
@@ -32,7 +26,7 @@ public class DataVisualizationView extends View {
 	 */
 	
 	public DataVisualizationView(DataModel model) throws IOException {
-        super(model, LAYOUT, ICON, TITLE);
+        super(model, "dataVisualization.fxml", "mining.png", "DATA VISUALIZATION");
         
         getStage().initModality(Modality.APPLICATION_MODAL);
         getController().init(model, getStage());

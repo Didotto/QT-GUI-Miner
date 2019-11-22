@@ -11,12 +11,6 @@ import model.DataModel;
  */
 
 public class SaveView extends View {
-	private static final String LAYOUT = "saveOptions.fxml";
-	
-	private static final String ICON = "saveIcon.png";
-	
-	private static final String TITLE = "SAVE OPTIONS";
-	
 	/**
 	 * Display the stage used to ask for the file name
 	 * where the results will be stored
@@ -26,7 +20,7 @@ public class SaveView extends View {
 	 */
 	
 	public SaveView(DataModel model) throws IOException {
-		super(model, LAYOUT, ICON, TITLE);
+		super(model, "saveOptions.fxml", "saveIcon.png", "SAVE OPTIONS");
         
         getStage().initModality(Modality.APPLICATION_MODAL);
         

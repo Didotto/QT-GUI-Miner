@@ -11,12 +11,6 @@ import model.DataModel;
  */
 
 public class GearView extends View {
-	private static final String LAYOUT = "connectionOptions.fxml";
-	
-	private static final String ICON = "rotella.png";
-	
-	private static final String TITLE = "SETTINGS";
-	
 	/**
 	 * Display the stage to the client where 
 	 * it will choose the connection's settings
@@ -26,7 +20,7 @@ public class GearView extends View {
 	 */
 	
 	public GearView(DataModel model) throws IOException {
-		super(model, LAYOUT, ICON, TITLE);
+		super(model, "connectionOptions.fxml", "rotella.png", "SETTINGS");
 		
 		getStage().setResizable(false);
         getStage().initModality(Modality.APPLICATION_MODAL);

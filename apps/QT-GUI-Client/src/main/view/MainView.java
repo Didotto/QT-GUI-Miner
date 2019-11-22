@@ -15,12 +15,6 @@ import javafx.scene.control.SplitPane;
  */
 
 public class MainView extends View{
-	private static final String TITLE = "QT-Miner JavaFX";
-	
-	private static final String ICON = "mining.png";
-	
-	private static final String LAYOUT = "main.fxml";
-	
 	/**
 	 * Display the initial stage to the client and disable
 	 * or show some elements based on the user's decision
@@ -31,7 +25,7 @@ public class MainView extends View{
 	
 	
 	public MainView(DataModel model) throws IOException {
-		super(model, LAYOUT, ICON, TITLE);
+		super(model, "main.fxml", "mining.png", "QT-Miner JavaFX");
 		MainController controller = (MainController)getController();
 		model.addObserver(controller);
 		SplitPane splitPane = (SplitPane)getStage().getScene().lookup("#splitPane");

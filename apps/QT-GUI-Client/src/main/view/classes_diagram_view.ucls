@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="view.AlertDialog" project="QT-GUI-Client" 
     file="/QT-GUI-Client/src/main/view/AlertDialog.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="174" y="286"/>    
+    <position height="-1" width="-1" x="151" y="703"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="view.DataVisualizationView" project="QT-GUI-Client" 
     file="/QT-GUI-Client/src/main/view/DataVisualizationView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="322" y="511"/>    
+    <position height="-1" width="-1" x="151" y="526"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="view.GearView" project="QT-GUI-Client" 
     file="/QT-GUI-Client/src/main/view/GearView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="889" y="135"/>    
+    <position height="-1" width="-1" x="1000" y="529"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="view.MainView" project="QT-GUI-Client" 
     file="/QT-GUI-Client/src/main/view/MainView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="908" y="355"/>    
+    <position height="-1" width="-1" x="816" y="529"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="view.PieChartView" project="QT-GUI-Client" 
     file="/QT-GUI-Client/src/main/view/PieChartView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="824" y="521"/>    
+    <position height="-1" width="-1" x="598" y="522"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="view.SaveView" project="QT-GUI-Client" 
     file="/QT-GUI-Client/src/main/view/SaveView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="579" y="509"/>    
+    <position height="-1" width="-1" x="369" y="519"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -65,23 +65,23 @@
     </display>  
   </class>  
   <generalization id="8">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="9">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
-  <dependency id="9">    
+  <generalization id="10">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <dependency id="11">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <generalization id="10">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
   <generalization id="12">    
-    <end type="SOURCE" refId="3"/>    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
   <generalization id="13">    
