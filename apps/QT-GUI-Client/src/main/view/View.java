@@ -18,9 +18,9 @@ import javafx.scene.layout.Pane;
  */
 
 public class View {
-	private static final String FXMLPATH = "../layouts/";
+	private static final String FXMLPATH = "/layouts/";
 	
-	private static final String ICONPATH = "file:src/main/resources/";
+	private static final String ICONPATH = "/resources/";
 	
 	private FXMLLoader loader;
 	
@@ -45,8 +45,8 @@ public class View {
 	 * @throws IOException if an I/O error occurs when using the stage
 	 */
 	
-	public View(DataModel model, String LayoutFileName, String IconFileName, String Title) throws IOException {
-		loader = new FXMLLoader(getClass().getResource(FXMLPATH + LayoutFileName));
+	public View(DataModel model, String layoutFileName, String iconFileName, String title) throws IOException {
+		loader = new FXMLLoader(getClass().getResource(FXMLPATH + layoutFileName));
 		root = loader.load();
 		controller = loader.getController();
 		this.model = model;
@@ -55,9 +55,9 @@ public class View {
         scene = new Scene(root, root.getPrefWidth(), root.getPrefHeight());
         
         stage.setScene(scene);
-        stage.setTitle(Title);
+        stage.setTitle(title);
         
-        stage.getIcons().add(new Image(ICONPATH + IconFileName));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream(ICONPATH + iconFileName)));
         
         
 	}
