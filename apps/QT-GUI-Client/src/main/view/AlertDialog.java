@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 
 public class AlertDialog extends Alert {	
 	
-	private final static String IMAGE_FOLDER = "file:src/main/resources/";
+	private final static String IMAGE_FOLDER = "/resources/";
 	
 	private final static String WARNING_IMAGE = "warning_icon.png";
 	
@@ -33,7 +33,7 @@ public class AlertDialog extends Alert {
 		this.setTitle(title);
 		this.setHeaderText(header);
 		this.setContentText(content);
-		Image image = new Image(IMAGE_FOLDER + img);
+		Image image = new Image(getClass().getResourceAsStream(IMAGE_FOLDER + img));
 		ImageView imageView = new ImageView(image);
 		imageView.setFitWidth(64);
 		imageView.setFitHeight(64);
@@ -60,13 +60,13 @@ public class AlertDialog extends Alert {
 		this.setContentText(content);
 		Stage stage = (Stage) this.getDialogPane().getScene().getWindow();
 		if(type == Alert.AlertType.WARNING) {
-			stage.getIcons().add(new Image(IMAGE_FOLDER + WARNING_IMAGE));
+			stage.getIcons().add(new Image(getClass().getResourceAsStream(IMAGE_FOLDER + WARNING_IMAGE)));
 			this.showAndWait();
 		} else if(type == Alert.AlertType.ERROR) {
-			stage.getIcons().add(new Image(IMAGE_FOLDER + ERROR_IMAGE));
+			stage.getIcons().add(new Image(getClass().getResourceAsStream(IMAGE_FOLDER + ERROR_IMAGE)));
 			this.showAndWait();
 		}else {
-			stage.getIcons().add(new Image(IMAGE_FOLDER + WARNING_IMAGE));
+			stage.getIcons().add(new Image(getClass().getResourceAsStream(IMAGE_FOLDER + WARNING_IMAGE)));
 		}
 	}
 }

@@ -50,6 +50,7 @@ public class MultiServer {
 	
 	private void run() throws IOException {
 		serversocket = new ServerSocket(this.port);
+		System.out.println("Server booted");
 		try {
 			while(true) {
 				Socket newClient = serversocket.accept();

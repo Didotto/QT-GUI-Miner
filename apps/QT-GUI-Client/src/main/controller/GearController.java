@@ -104,34 +104,42 @@ public class GearController extends Controller{
 	public void connectionClicked (MouseEvent event) {
 		if (connectionButton.getText().equals("Connect")) {
 			String ipAddr = ipAddress.getText();
-			int port_conn = new Integer(port.getText()).intValue();
-			if (re_ip(ipAddr)){
-					if (port_conn>=1 && port_conn<=65535){
-						try {
-							model.connect(ipAddr, port_conn);
-							controlledStage.close();
-						} catch (IOException e) {
-							new AlertDialog(AlertType.ERROR,
+			try {
+				int port_conn = new Integer(port.getText()).intValue();
+				if (re_ip(ipAddr)){
+						if (port_conn>=1 && port_conn<=65535){
+							try {
+								model.connect(ipAddr, port_conn);
+								controlledStage.close();
+							} catch (IOException e) {
+								new AlertDialog(AlertType.ERROR,
+										"CONNECTION FAILED",
+										"CONNECTION PROBLEMS",
+										"There is a problem with the server... Try to replace IP or Port!",
+										"connection_failed.png"
+										);
+							}
+						}else {
+							new AlertDialog(AlertType.WARNING,
 									"CONNECTION FAILED",
 									"CONNECTION PROBLEMS",
-									"There is a problem with the server... Try to replace IP or Port!",
-									"connection_failed.png"
+									"The Port doesn't respect the standards...Try again!"
 									);
 						}
 					}else {
-						new AlertDialog(AlertType.WARNING,
+						new AlertDialog(AlertType.ERROR,
 								"CONNECTION FAILED",
 								"CONNECTION PROBLEMS",
-								"The Port doesn't respect the standards...Try again!"
+								"The IP Address doesn't respect the standards...Try again!"
 								);
 					}
-				}else {
-					new AlertDialog(AlertType.ERROR,
-							"CONNECTION FAILED",
-							"CONNECTION PROBLEMS",
-							"The IP Address doesn't respect the standards...Try again!"
-							);
-				}
+			}catch (NumberFormatException e) {
+				new AlertDialog(AlertType.ERROR,
+						"CONNECTION FAILED",
+						"CONNECTION PROBLEMS",
+						"The Port must be an integer... Try again!"
+						);
+			}
 		}else {
 			try {
 			model.disconnect();
